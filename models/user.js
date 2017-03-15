@@ -33,7 +33,7 @@ user.methods.updateEmailVerification = function(verified){
 };
 
 
-userSchema.static({
+user.static({
 
     /**
      * Get the user details by Auth0 Id
