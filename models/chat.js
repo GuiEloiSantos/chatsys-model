@@ -12,3 +12,7 @@ var chat = new Schema(
         versionKey: false
     }
 );
+
+
+
+module.exports = mongoose.model('Chat', chat);

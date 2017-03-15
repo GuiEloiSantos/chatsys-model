@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var lead = new Schema(
     {
-        client_id: {type: Schema.Types.ObjectId, ref: 'client' },
+        client_id: {type: Schema.Types.ObjectId, ref: 'company' },
         chat_id: {type: Schema.Types.ObjectId, ref: 'chat' },
         status: String,
         notes: String,
@@ -16,3 +16,5 @@ var lead = new Schema(
         versionKey: false
     }
 );
+
+module.exports = mongoose.model('Lead', lead);

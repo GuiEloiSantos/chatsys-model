@@ -46,3 +46,6 @@ var company = new Schema(
         versionKey: false
     }
 );
+
+
+module.exports = mongoose.model('Company', company);

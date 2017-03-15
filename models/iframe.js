@@ -13,3 +13,6 @@ var iframe = new Schema(
         versionKey: false
     }
 );
+
+
+module.exports = mongoose.model('Iframe', iframe);

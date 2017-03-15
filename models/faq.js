@@ -14,3 +14,6 @@ var faq = new Schema(
         versionKey: false
     }
 );
+
+
+module.exports = mongoose.model('Faq', faq);

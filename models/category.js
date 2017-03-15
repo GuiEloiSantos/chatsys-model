@@ -11,3 +11,7 @@ var category = new Schema(
         versionKey: false
     }
 );
+
+
+
+module.exports = mongoose.model('Category', category);
