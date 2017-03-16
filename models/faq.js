@@ -7,6 +7,7 @@ var faq = new Schema(
         category_id: {type: Schema.Types.ObjectId, ref: 'category' },
         title: String,
         content: String,
+        keywords: {type: Array, default: []},
         count:{type: Number, default: 0}
     },
     {
