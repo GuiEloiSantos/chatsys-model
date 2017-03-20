@@ -35,6 +35,7 @@ var company = new Schema(
             gtm_code: String,
             api_key: String
         },
+        main_url: String,
         website:{
             urls:{type: Array, default: []},
             status_cake_id:{type: Array, default: []},
@@ -47,5 +48,21 @@ var company = new Schema(
     }
 );
 
+company.static({
+    newCompany: function(data){
+        var Company = this.model('Company');
+        var company = new Company();
+        //for simple signup
+        var name = data.company;
+        if(data.hasOwnProperty('user_metadata') && data.user_metadata.name){
+            name = data.user_metadata.company;
+        }
+        company.set({
+            name: name,
+            main_url: data.url
+        });
+        return company.save();
+    }
+});
 
 module.exports = mongoose.model('Company', company);
