@@ -51,7 +51,7 @@ user.static({
      * @param  {Object} data response from auth0 Api
      * @return {Promise}
      */
-    newUser: function(data){
+    newUser: function(data, id){
         var User = this.model('User');
         var user = new User();
         //for simple signup
@@ -64,6 +64,7 @@ user.static({
             name: name,
             email_verified: data.email_verified,
             picture: data.picture,
+            company_id: id,
             email: data.email
         });
         return user.save();
