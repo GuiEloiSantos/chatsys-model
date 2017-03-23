@@ -59,7 +59,7 @@ company.static({
         }
         company.set({
             name: name,
-            main_url: data.url
+            main_url: data.user_metadata.url
         });
         return company.save();
     }
