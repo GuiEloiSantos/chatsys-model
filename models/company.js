@@ -40,6 +40,10 @@ var company = new Schema(
             urls:{type: Array, default: []},
             status_cake_id:{type: Array, default: []},
             status: {type: String, default: 'off'}
+        },
+        zoho:{
+            customer_id: String,
+            subscription_id: String
         }
     },
     {
