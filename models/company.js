@@ -57,7 +57,7 @@ company.methods.addLeadEmail = function (leadEmail) {
     return this.update({$push: {lead_email: leadEmail}});
 };
 company.methods.updateIndustry = function (industry) {
-    return this.currentCompany.update({industry: industry});
+    return this.update({industry: industry});
 };
 
 company.static({
