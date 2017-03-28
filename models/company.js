@@ -7,7 +7,7 @@ var company = new Schema(
         overview: String,
         operation_hours: String,
         lead_email: {type: Array, default: []},
-        type: String, default: 'form',
+        type:{ type:String, default: 'form'},
         permission: {type: Array, default: []},
         email_verified: Boolean,
         email: String,
