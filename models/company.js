@@ -53,10 +53,10 @@ var company = new Schema(
     }
 );
 
-userSchema.methods.addLeadEmail = function (leadEmail) {
+company.methods.addLeadEmail = function (leadEmail) {
     return this.update({$push: {lead_email: leadEmail}});
 };
-userSchema.methods.updateIndustry = function (industry) {
+company.methods.updateIndustry = function (industry) {
     return this.currentCompany.update({industry: industry});
 };
 
