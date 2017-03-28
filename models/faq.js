@@ -35,7 +35,7 @@ faq.static({
             title: title,
             content: content
         });
-        return category.save();
+        return faq.save();
     }
 });
 
