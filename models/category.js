@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var category = new Schema(
     {
-        company_id: {type: Schema.Types.ObjectId, ref: 'client' },
+        company_id: {type: Schema.Types.ObjectId, ref: 'company' },
         name: String
     },
     {
@@ -17,12 +17,13 @@ category.static({
     /**
      * Creates a new user in our database
      *
-     * @param  {Object} name, id response from auth0 Api
+     * @param name, id response from auth0 Api
      * @return {Promise}
      */
     newCategory: function(name, id){
         var Category = this.model('Category');
         var category = new Category();
+        console.log("going on inside me");
         //for simple signup
         category.set({
             name: name,

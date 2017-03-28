@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var faq = new Schema(
     {
-        company_id: {type: Schema.Types.ObjectId, ref: 'client'},
+        company_id: {type: Schema.Types.ObjectId, ref: 'company'},
         category_id: {type: Schema.Types.ObjectId, ref: 'category'},
         title: String,
         content: String,
