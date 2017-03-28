@@ -7,42 +7,42 @@ var company = new Schema(
         overview: String,
         operation_hours: String,
         lead_email: {type: Array, default: []},
-        type:{ type:String, default: 'form'},
+        type: {type: String, default: 'form'},
         permission: {type: Array, default: []},
         email_verified: Boolean,
         email: String,
         industry: String,
         phone: String,
         timezone: {type: String, default: 'America/Los_Angeles'},
-        plan:{
+        plan: {
             name: String,
             value: {type: Number, default: 0},
             customer_id: String,
             subscription_id: String,
             type: {type: String, default: 'normal'},
             status: String,
-            lead_limit:{type: Number, default: 0},
-            chat_limit:{type: Number, default: 0}
+            lead_limit: {type: Number, default: 0},
+            chat_limit: {type: Number, default: 0}
         },
-        settings:{
+        settings: {
             lci_chat: {type: Number, default: 0},
             status: {type: String, default: 'active'},
-            custom_hours:{
+            custom_hours: {
                 start_date: {type: Date},
                 end_date: {type: Date}
             },
             days: {type: Array, default: []},
-            switcher_code : String,
+            switcher_code: String,
             gtm_code: String,
             api_key: String
         },
         main_url: String,
-        website:{
-            urls:{type: Array, default: []},
-            status_cake_id:{type: Array, default: []},
+        website: {
+            urls: {type: Array, default: []},
+            status_cake_id: {type: Array, default: []},
             status: {type: String, default: 'off'}
         },
-        zoho:{
+        zoho: {
             customer_id: String,
             subscription_id: String
         }
@@ -53,13 +53,20 @@ var company = new Schema(
     }
 );
 
+userSchema.methods.addLeadEmail = function (leadEmail) {
+    return this.update({$push: {lead_email: leadEmail}});
+};
+userSchema.methods.updateIndustry = function (industry) {
+    return this.currentCompany.update({industry: industry});
+};
+
 company.static({
-    newCompany: function(data){
+    newCompany: function (data) {
         var Company = this.model('Company');
         var company = new Company();
         //for simple signup
         var name = data.company;
-        if(data.hasOwnProperty('user_metadata') && data.user_metadata.name){
+        if (data.hasOwnProperty('user_metadata') && data.user_metadata.name) {
             name = data.user_metadata.company;
         }
         company.set({
