@@ -11,6 +11,7 @@ var company = new Schema(
         permission: {type: Array, default: []},
         email_verified: Boolean,
         email: String,
+        industry: String,
         phone: String,
         timezone: {type: String, default: 'America/Los_Angeles'},
         plan:{

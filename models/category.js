@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var category = new Schema(
     {
-        client_id: {type: Schema.Types.ObjectId, ref: 'client' },
+        company_id: {type: Schema.Types.ObjectId, ref: 'client' },
         name: String
     },
     {
