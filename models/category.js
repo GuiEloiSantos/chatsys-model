@@ -20,14 +20,14 @@ category.static({
      * @param name, id response from auth0 Api
      * @return {Promise}
      */
-    newCategory: function(name, id){
+    newCategory: function(name, company_id){
         var Category = this.model('Category');
         var category = new Category();
-        console.log("going on inside me");
+        console.log("going on inside me Name"+name+" Company "+company_id);
         //for simple signup
         category.set({
             name: name,
-            company_id: id
+            company_id: company_id
         });
         return category.save();
     }
