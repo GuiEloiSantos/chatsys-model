@@ -23,8 +23,7 @@ category.static({
     newCategory: function(name, company_id){
         var Category = this.model('Category');
         var category = new Category();
-        console.log("going on inside me Name"+name+" Company "+company_id);
-        //for simple signup
+
         category.set({
             name: name,
             company_id: company_id
