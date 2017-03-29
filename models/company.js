@@ -58,6 +58,12 @@ company.methods.addLeadEmail = function (leadEmail) {
     this.set('lead_email', LeadEmail);
     return this.save();
 };
+company.methods.replaceList = function (leadList) {
+    this.set('lead_email', leadList);
+    return this.save();
+};
+
+
 company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
 
