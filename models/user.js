@@ -29,6 +29,10 @@ user.methods.getAuth0UserId = function () {
     return this.get('auth0_user_id');
 };
 
+user.methods.getStatus = function () {
+    return this.get('status');
+};
+
 user.methods.updateStatus = function (status) {
     return this.update({status: status});
 };
