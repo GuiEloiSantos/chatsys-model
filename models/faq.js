@@ -39,6 +39,11 @@ faq.static({
         var Faq = this.model('Faq');
         return Faq.find({'company_id':company_id, 'category_id':category_id});
 
+    },
+    getFaqByCompany: function (category_id) {
+        var Faq = this.model('Faq');
+        return Faq.find({ 'category_id':category_id});
+
     }
 });
 
