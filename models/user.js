@@ -7,6 +7,7 @@ var user = new Schema(
         name: String,
         company_id: {type: Schema.Types.ObjectId, ref: 'company'},
         type: String,
+        status: {type: String, default: 'form'},
         permission: {type: Array, default: []},
         email_verified: Boolean,
         email: String,
