@@ -20,8 +20,6 @@ var faq = new Schema(
 faq.static({
 
     /**
-     * Creates a new user in our database
-     *
      * @param  {String} company_id ,category_id, title, content response from auth0 Api
      * @return {Promise}
      */
@@ -36,6 +34,11 @@ faq.static({
             content: content
         });
         return faq.save();
+    },
+    getFaqByCompanyAndCategory: function (company_id, category_id) {
+        var Faq = this.model('Faq');
+        return Faq.find({'company_id':company_id, 'category_id':category_id}).exec();
+
     }
 });
 

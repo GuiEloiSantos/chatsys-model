@@ -29,6 +29,11 @@ category.static({
             company_id: company_id
         });
         return category.save();
+    },
+    getCategoryByCompanyId: function (company_id) {
+        Category = this.model('Category');
+        return Category.find({'company_id':company_id}).exec();
+
     }
 });
 
