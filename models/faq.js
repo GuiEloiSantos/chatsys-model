@@ -37,7 +37,7 @@ faq.static({
     },
     getFaqByCompanyAndCategory: function (company_id, category_id) {
         var Faq = this.model('Faq');
-        return Faq.find({'company_id':company_id, 'category_id':category_id}).exec();
+        return Faq.find({'company_id':company_id, 'category_id':category_id});
 
     }
 });

@@ -32,7 +32,7 @@ category.static({
     },
     getCategoryByCompanyId: function (company_id) {
         Category = this.model('Category');
-        return Category.find({'company_id':company_id}).exec();
+        return Category.find({'company_id':company_id});
 
     }
 });
