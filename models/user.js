@@ -34,8 +34,8 @@ user.methods.getStatus = function () {
 };
 
 user.methods.updateStatus = function (status) {
-    console.log(status);
-    return this.update({status: status});
+    this.set({status: status});
+    return this.save();
 };
 user.methods.updateStatusFaq = function () {
     return this.updateStatus("faqs");
