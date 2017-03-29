@@ -53,7 +53,7 @@ var company = new Schema(
 );
 
 company.methods.addLeadEmail = function (leadEmail) {
-    return this.update({$push: {lead_email: leadEmail}});
+    return this.update({"$push": {lead_email: leadEmail}});
 };
 company.methods.updateIndustry = function (industry) {
     return this.update({industry: industry});
