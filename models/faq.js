@@ -48,7 +48,7 @@ faq.static({
 
     findFaqById: function (id) {
         var Faq = this.model('Faq');
-        return Faq.findOne({_id: id}).exec();
+        return Faq.findOne({_id: id});
     }
 });
 
