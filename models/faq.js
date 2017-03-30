@@ -44,6 +44,11 @@ faq.static({
         var Faq = this.model('Faq');
         return Faq.find({ 'company_id':company_id});
 
+    },
+
+    findFaqById: function (id) {
+        var Faq = this.model('Faq');
+        return Faq.findOne({_id: id}).exec();
     }
 });
 
