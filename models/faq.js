@@ -16,6 +16,10 @@ var faq = new Schema(
     }
 );
 
+faq.methods.replaceKeywords = function (keywords) {
+    this.set('keywords', keywords);
+    return this.save();
+};
 
 faq.static({
 
