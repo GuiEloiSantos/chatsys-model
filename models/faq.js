@@ -20,7 +20,10 @@ faq.methods.replaceKeywords = function (keywords) {
     this.set('keywords', keywords);
     return this.save();
 };
-
+faq.methods.updateCount = function (count) {
+    this.set({count: count});
+    return this.save();
+};
 faq.static({
 
     /**
