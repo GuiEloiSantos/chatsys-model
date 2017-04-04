@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var productInfo = "PRODUCT INFORMATION";
-var faqs = "FAQS";
-var basicInfo = "BASIC INFORMATION";
-var askVisitors = "ASK VISITORS";
+var productInfo     = "PRODUCT INFORMATION";
+var faqs            = "FAQS";
+var basicInfo       = "BASIC INFORMATION";
+var askVisitors     = "ASK VISITORS";
 
 
 var faq = new Schema(
