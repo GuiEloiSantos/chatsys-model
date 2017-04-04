@@ -5,11 +5,13 @@ var lead = new Schema(
     {
         company_id: {type: Schema.Types.ObjectId, ref: 'company' },
         chat_id: {type: Schema.Types.ObjectId, ref: 'chat' },
-        status: String,
+        status: {type: String, default: "pending"},
         notes: String,
         name: String,
         email: String,
         phone: String,
+        converted: String,
+        rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []}
     },
     {
