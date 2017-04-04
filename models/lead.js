@@ -4,13 +4,14 @@ var Schema = mongoose.Schema;
 var lead = new Schema(
     {
         company_id: {type: Schema.Types.ObjectId, ref: 'company' },
-        chat_id: {type: Schema.Types.ObjectId, ref: 'chat' },
-        status: {type: String, default: "pending"},
+        chat_id: String,
+        status: {type: String, default: "Pending"},
         notes: String,
         name: String,
         email: String,
         phone: String,
         converted: String,
+        situation: String,
         rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []}
     },
