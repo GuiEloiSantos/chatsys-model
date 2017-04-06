@@ -88,7 +88,7 @@ faq.static({
         var Faq = this.model('Faq');
         var faq = Faq.findOne({_id: id});
 
-        faq.set({
+        return faq.update({
             company_id: company_id,
             title: title,
             content: content,
@@ -97,7 +97,6 @@ faq.static({
             order: order,
             count: count
         });
-        return faq.save();
     },
     getProductInfo:function (company_id) {
         var Faq = this.model('Faq');
