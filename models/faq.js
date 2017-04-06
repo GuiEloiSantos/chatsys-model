@@ -8,14 +8,14 @@ var askVisitors     = "ASK VISITORS";
 
 var faq = new Schema(
     {
-        company_id: {type: Schema.Types.ObjectId, ref: 'company'},
-        category_name: String,
-        title: String,
-        content: String,
-        keywords: {type: Array, default: []},
-        price: String,
-        order: {type: Number, default: 0},
-        count: {type: Number, default: 0}
+        company_id:     {type: Schema.Types.ObjectId, ref: 'company'},
+        category_name:  String,
+        title:          String,
+        content:        String,
+        keywords:       {type: Array, default: []},
+        price:          String,
+        order:          {type: Number, default: 0},
+        count:          {type: Number, default: 0}
     },
     {
         timestamps: true,
@@ -81,6 +81,21 @@ faq.static({
             title: title,
             content: content,
             price: price
+        });
+        return faq.save();
+    },
+    updateAny: function (id,company_id, title, content, keywords, price, order, count) {
+        var Faq = this.model('Faq');
+        var faq = Faq.findOne({_id: id});
+
+        faq.set({
+            company_id: company_id,
+            title: title,
+            content: content,
+            price: price,
+            keywords: keywords,
+            order: order,
+            count: count
         });
         return faq.save();
     },
