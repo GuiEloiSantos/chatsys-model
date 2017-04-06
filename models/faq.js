@@ -86,17 +86,19 @@ faq.static({
     },
     updateAny: function (id,company_id, title, content, keywords, price, order, count) {
         var Faq = this.model('Faq');
-        var faq = Faq.findOne({_id: id});
-
-        return faq.update({
-            company_id: company_id,
-            title: title,
-            content: content,
-            price: price,
-            keywords: keywords,
-            order: order,
-            count: count
+        Faq.findOne({_id: id}).exec().then(function (faq) {
+            return faq.update({
+                company_id: company_id,
+                title: title,
+                content: content,
+                price: price,
+                keywords: keywords,
+                order: order,
+                count: count
+            });
         });
+
+
     },
     getProductInfo:function (company_id) {
         var Faq = this.model('Faq');
