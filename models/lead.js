@@ -44,6 +44,10 @@ lead.static({
         var Lead = this.model('Lead');
         return Lead.find({'company_id':company_id});
     },
+    getLeadByChatId: function (chat_id) {
+        var Lead = this.model('Lead');
+        return Lead.findOne({'chat_id':chat_id});
+    },
     modifyStatus: function (id,status) {
         var Lead = this.model('Lead');
         Lead.findOne({_id: id}).exec().then(function (lead) {
