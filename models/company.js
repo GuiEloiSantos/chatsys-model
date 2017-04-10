@@ -4,11 +4,8 @@ var Schema = mongoose.Schema;
 var company = new Schema(
     {
         name: String,
-        overview: String,
-        operation_hours: String,
         lead_email: {type: Array, default: []},
         permission: {type: Array, default: []},
-        email_verified: Boolean,
         email: String,
         industry: String,
         phone: String,
