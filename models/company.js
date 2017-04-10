@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var company = new Schema(
     {
         name: String,
@@ -48,7 +47,6 @@ var company = new Schema(
         versionKey: false
     }
 );
-
 company.methods.addLeadEmail = function (leadEmail) {
     var LeadEmail = this.get('lead_email');
     LeadEmail.push(leadEmail);
@@ -59,14 +57,15 @@ company.methods.replaceList = function (leadList) {
     this.set('lead_email', leadList);
     return this.save();
 };
-
-
 company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
 
     return this.save();
 };
-
+company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
+    this.set({phone:phone, name:name, timezone:timezone, industry:industry, main_url:main_url});
+    return this.save;
+};
 company.static({
     newCompany: function (data) {
         var Company = this.model('Company');

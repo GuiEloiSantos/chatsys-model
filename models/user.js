@@ -37,6 +37,7 @@ user.methods.updateStatus = function (status) {
     this.set({status: status});
     return this.save();
 };
+
 user.methods.updateStatusFaq = function () {
     return this.updateStatus("faqs");
 };
@@ -46,6 +47,11 @@ user.methods.updateStatusComplete = function () {
 
 user.methods.updateEmailVerification = function (verified) {
     return this.update({email_verified: verified});
+};
+
+user.methods.updateBasic = function (name,phone, timezone) {
+    this.set({phone: phone, name: name, timezone: timezone});
+    return this.save;
 };
 
 
