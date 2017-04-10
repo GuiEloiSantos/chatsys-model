@@ -13,7 +13,8 @@ var lead = new Schema(
         converted: String,
         situation: String,
         rate: {type: Number, default: 0},
-        custom_fields: {type: Array, default: []}
+        custom_fields: {type: Array, default: []},
+        date: {type: Date, default: $currentDate}
     },
     {
         timestamps: true,
