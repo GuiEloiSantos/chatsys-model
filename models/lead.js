@@ -14,7 +14,7 @@ var lead = new Schema(
         situation: String,
         rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []},
-        date: {type: Date, default: $currentDate}
+        date: {type: Date}
     },
     {
         timestamps: true,
@@ -27,7 +27,7 @@ var lead = new Schema(
 
 
 lead.static({
-    newLead: function (company_id, chat_id, notes, name, email, phone, custom_fields) {
+    newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
         var Lead = this.model('Lead');
         var lead= new Lead();
         lead.set({
@@ -37,6 +37,7 @@ lead.static({
             name: name,
             email: email,
             phone: phone,
+            date: date,
             custom_fields: custom_fields
         });
         return lead.save();
