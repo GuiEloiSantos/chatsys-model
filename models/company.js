@@ -63,7 +63,11 @@ company.methods.updateIndustry = function (industry) {
     return this.save();
 };
 company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
-    this.set({ name:name, phone:phone, timezone:timezone, industry:industry, main_url:main_url});
+    this.set({ name:name});
+    this.set({ phone:phone});
+    this.set({ timezone:timezone});
+    this.set({ industry:industry});
+    this.set({ main_url:main_url});
     return this.save();
 };
 company.static({
