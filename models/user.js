@@ -49,8 +49,10 @@ user.methods.updateEmailVerification = function (verified) {
     return this.update({email_verified: verified});
 };
 
-user.methods.updateBasic = function (name,phone, timezone) {
-    this.set({phone: phone, name: name, timezone: timezone});
+user.methods.updateBasic = function (name,phone,timezone) {
+    this.set({phone: phone});
+    this.set({name: name});
+    this.set({timezone: timezone});
     return this.save;
 };
 
