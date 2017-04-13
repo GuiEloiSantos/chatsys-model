@@ -24,8 +24,8 @@ var company = new Schema(
             status: {type: String, default: 'active'},
             custom_hours: {
                 active: {type: Boolean, default: false},
-                start_date: String,
-                end_date: String
+                start_time: String,
+                end_time: String
             },
             weekends: {type: Boolean, default: true},
             days: {type: Array, default: []},
@@ -72,12 +72,12 @@ company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
     this.set({ main_url:main_url});
     return this.save();
 };
-company.methods.updateSettings = function (cust_h,start_date,end_date,weekends,switcher_code) {
+company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,switcher_code) {
     this.set({ "settings.weekends":weekends});
     this.set({ "settings.custom_hours.active":cust_h});
     this.set({ "settings.switcher_code":switcher_code});
-    this.set({ "settings.custom_hours.end_date":end_date});
-    this.set({ "settings.custom_hours.start_date":start_date});
+    this.set({ "settings.custom_hours.start_time":start_time});
+    this.set({ "settings.custom_hours.end_time":end_time});
     return this.save();
 };
 company.static({
