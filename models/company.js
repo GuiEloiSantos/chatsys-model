@@ -23,9 +23,11 @@ var company = new Schema(
             lci_chat: {type: Number, default: 0},
             status: {type: String, default: 'active'},
             custom_hours: {
+                active: {type: Boolean, default: false},
                 start_date: {type: Date},
                 end_date: {type: Date}
             },
+            weekends: {type: Boolean, default: true},
             days: {type: Array, default: []},
             switcher_code: String,
             gtm_code: String,
