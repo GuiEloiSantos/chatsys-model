@@ -66,18 +66,17 @@ company.methods.updateIndustry = function (industry) {
 
 
 company.methods.activeGTM = function () {
-    this.set({gtm_code: "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});" });
+    this.set({"settings.gtm_code": "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});" });
     return this.save();
 };
 
 company.methods.clearGTM = function () {
-    this.set({gtm_code: "" });
+    this.set({"settings.gtm_code": "" });
     return this.save();
 };
 
-company.methods.generateApiKey = function () {
-    var key = generateUUID();
-    this.set({api_key: key });
+company.methods.generateApiKey = function (key) {
+    this.set({"settings.api_key": key });
     return key;
 };
 
@@ -115,24 +114,6 @@ company.static({
     }
 });
 
-function generateUUID()
-{
-    var d = new Date().getTime();
-
-    if( window.performance && typeof window.performance.now === "function" )
-    {
-        d += performance.now();
-    }
-
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
-    {
-        var r = (d + Math.random()*16)%16 | 0;
-        d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-    });
-
-    return uuid;
-}
 
 
 module.exports = mongoose.model('Company', company);
