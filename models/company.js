@@ -72,7 +72,8 @@ company.methods.activeGTM = function () {
 };
 
 company.methods.clearGTM = function () {
-    this.set({"settings.gtm_code": "" });
+    var data = "";
+    this.set({"settings.gtm_code": data });
     return this.save();
 };
 

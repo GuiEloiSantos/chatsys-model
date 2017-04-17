@@ -6,7 +6,7 @@ var user = new Schema(
         auth0_user_id: String,
         name: String,
         company_id: {type: Schema.Types.ObjectId, ref: 'company'},
-        type: String,
+        type: {type: String, default: 'admin'},
         status: {type: String, default: 'form'},
         permission: {type: Array, default: []},
         email_verified: Boolean,
