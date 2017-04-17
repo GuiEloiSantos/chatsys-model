@@ -66,7 +66,8 @@ company.methods.updateIndustry = function (industry) {
 
 
 company.methods.activeGTM = function () {
-    this.set({"settings.gtm_code": "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});" });
+    var data = "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});";
+    this.set({"settings.gtm_code": data });
     return this.save();
 };
 
@@ -77,6 +78,7 @@ company.methods.clearGTM = function () {
 
 company.methods.generateApiKey = function (key) {
     this.set({"settings.api_key": key });
+    this.save();
     return key;
 };
 
