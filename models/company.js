@@ -61,9 +61,27 @@ company.methods.replaceList = function (leadList) {
 };
 company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
-
     return this.save();
 };
+
+
+company.methods.activeGTM = function () {
+    this.set({gtm_code: "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});" });
+    return this.save();
+};
+
+company.methods.clearGTM = function () {
+    this.set({gtm_code: "" });
+    return this.save();
+};
+
+company.methods.generateApiKey = function () {
+    var key = generateUUID();
+    this.set({api_key: key });
+    return key;
+};
+
+
 company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
     this.set({ name:name});
     this.set({ phone:phone});
@@ -96,5 +114,25 @@ company.static({
         return company.save();
     }
 });
+
+function generateUUID()
+{
+    var d = new Date().getTime();
+
+    if( window.performance && typeof window.performance.now === "function" )
+    {
+        d += performance.now();
+    }
+
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
+    {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+
+    return uuid;
+}
+
 
 module.exports = mongoose.model('Company', company);
