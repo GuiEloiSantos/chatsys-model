@@ -105,7 +105,7 @@ company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,s
 company.static({
     getCompanyLiveChatId: function (lci_chat) {
         var Company = this.model('Company');
-        return Company.find({'settings.lci_chat':lci_chat});
+        return Company.find({'settings.lci_chat':lci_chat}).exec();
     },
     newCompany: function (data) {
         var Company = this.model('Company');
