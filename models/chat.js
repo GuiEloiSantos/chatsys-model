@@ -16,9 +16,9 @@ var chat = new Schema(
 
 chat.static({
     newChat: function (company_id, chat_id, status) {
-        var Lead = this.model('Lead');
-        var lead= new Lead();
-        lead.set({
+        var Chat = this.model('Chat');
+        var chat = new Chat();
+        chat.set({
             company_id: company_id,
             chat_id: chat_id,
             status: status,
@@ -28,7 +28,7 @@ chat.static({
     },
     getChatByCompany: function (company_id) {
         var Chat = this.model('Chat');
-        return Chat.findOne({'company_id':company_id}).exec();
+        return Chat.find({'company_id':company_id}).exec();
     },
     modifyStatus: function (id,status) {
         var Chat = this.model('Chat');
