@@ -25,7 +25,7 @@ chat.static({
             status: status,
             date: date
         });
-        return lead.save();
+        return chat.save();
     },
     getChatByCompany: function (company_id) {
         var Chat = this.model('Chat');
