@@ -29,7 +29,7 @@ chat.static({
     },
     getChatByCompany: function (company_id) {
         var Chat = this.model('Chat');
-        return Chat.find({'company_id':company_id}).exec();
+        return Chat.find({'company_id':company_id});
     },
     modifyStatus: function (id,status) {
         var Chat = this.model('Chat');
