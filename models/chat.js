@@ -21,13 +21,14 @@ chat.static({
         lead.set({
             company_id: company_id,
             chat_id: chat_id,
-            status: status
+            status: status,
+            date: new Date()
         });
         return lead.save();
     },
     getChatByCompany: function (company_id) {
         var Chat = this.model('Chat');
-        return Chat.find({'company_id':company_id});
+        return Chat.findOne({'company_id':company_id}).exec();
     },
     modifyStatus: function (id,status) {
         var Chat = this.model('Chat');

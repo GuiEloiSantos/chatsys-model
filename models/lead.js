@@ -30,6 +30,10 @@ lead.static({
     newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
         var Lead = this.model('Lead');
         var lead= new Lead();
+        var situation = '';
+        if(!name && !email && !phone){
+            situation = 'SEE TRANSCRIPT';
+        }
         lead.set({
             company_id: company_id,
             chat_id: chat_id,
@@ -38,6 +42,7 @@ lead.static({
             email: email,
             phone: phone,
             date: date,
+            situation: situation,
             custom_fields: custom_fields
         });
         return lead.save();

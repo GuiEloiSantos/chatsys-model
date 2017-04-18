@@ -17,7 +17,9 @@ var company = new Schema(
             type: {type: String, default: 'normal'},
             status: String,
             lead_limit: {type: Number, default: 0},
-            chat_limit: {type: Number, default: 0}
+            lead_actual: {type: Number, default: 0},
+            chat_limit: {type: Number, default: 0},
+            chat_actual: {type: Number, default: 0}
         },
         settings: {
             lci_chat: {type: Number, default: 0},
@@ -101,6 +103,10 @@ company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,s
     return this.save();
 };
 company.static({
+    getCompanyLiveChatId: function (lci_chat) {
+        var Company = this.model('Company');
+        return Company.find({'settings.lci_chat':lci_chat});
+    },
     newCompany: function (data) {
         var Company = this.model('Company');
         var company = new Company();
