@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var util = require('/lib/util');
+var util = require('../lib/util');
 var company = new Schema(
     {
         name: String,
