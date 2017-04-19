@@ -50,7 +50,7 @@ lead.static({
                 });
                 return lead.save();
             }else {
-                return retlead;
+                return null;
             }
         });
 

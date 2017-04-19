@@ -29,7 +29,7 @@ chat.static({
                });
                return chat.save();
            }else{
-               return retchat;
+               return null;
            }
         });
 
