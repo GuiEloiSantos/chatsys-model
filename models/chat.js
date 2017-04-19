@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var chat = new Schema(
     {
         company_id: {type: Schema.Types.ObjectId, ref: 'company_id' },
-        chat_id: String,
+        chat_id: {type: String, unique:true},
         status: { type: String, default:"Chat"},
         date: {type: Date}
     },

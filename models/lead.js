@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var lead = new Schema(
     {
         company_id: {type: Schema.Types.ObjectId, ref: 'company' },
-        chat_id: String,
+        chat_id: {type:String, unique:true},
         status: {type: String, default: "Pending"},
         notes: String,
         name: String,
@@ -29,31 +29,23 @@ var lead = new Schema(
 lead.static({
     newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
         var Lead = this.model('Lead');
-        Lead.getLeadByChatId(chat_id).exec().then(function (lead) {
-           if(lead){
-               return lead;
-           }else{
-               var newlead = new Lead();
-               var situation = '';
-               if(!name && !email && !phone){
-                   situation = 'SEE TRANSCRIPT';
-               }
-               newlead .set({
-                   company_id: company_id,
-                   chat_id: chat_id,
-                   notes: notes,
-                   name: name,
-                   email: email,
-                   phone: phone,
-                   date: date,
-                   situation: situation,
-                   custom_fields: custom_fields
-               });
-               return newlead.save();
-           }
+        var lead= new Lead();
+        var situation = '';
+        if(!name && !email && !phone){
+            situation = 'SEE TRANSCRIPT';
+        }
+        lead.set({
+            company_id: company_id,
+            chat_id: chat_id,
+            notes: notes,
+            name: name,
+            email: email,
+            phone: phone,
+            date: date,
+            situation: situation,
+            custom_fields: custom_fields
         });
-
-
+        return lead.save();
     },
     getLeadByCompany: function (company_id) {
         var Lead = this.model('Lead');
