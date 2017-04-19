@@ -17,9 +17,9 @@ var chat = new Schema(
 chat.static({
     newChat: function (company_id, chat_id, status) {
         var Chat = this.model('Chat');
-        var chat = new Chat();
-        Chat.findOne({'chat_id':chat_id}).exec().then(function (retchat) {
-           if(!retchat){
+        Chat.findOne({'chat_id':chat_id}).exec().then(function (result) {
+           if(!result){
+               var chat = new Chat();
                var date = new Date();
                chat.set({
                    company_id: company_id,
@@ -29,7 +29,7 @@ chat.static({
                });
                return chat.save();
            }else{
-               return null;
+               return result;
            }
         });
 
