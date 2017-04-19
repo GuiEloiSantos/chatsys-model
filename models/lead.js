@@ -30,22 +30,30 @@ lead.static({
     newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
         var Lead = this.model('Lead');
         var lead= new Lead();
-        var situation = '';
-        if(!name && !email && !phone){
-            situation = 'SEE TRANSCRIPT';
-        }
-        lead.set({
-            company_id: company_id,
-            chat_id: chat_id,
-            notes: notes,
-            name: name,
-            email: email,
-            phone: phone,
-            date: date,
-            situation: situation,
-            custom_fields: custom_fields
+
+        Lead.findOne({'chat_id':chat_id}).then(function (retlead) {
+            if(!retlead){
+                var situation = '';
+                if(!name && !email && !phone){
+                    situation = 'SEE TRANSCRIPT';
+                }
+                lead.set({
+                    company_id: company_id,
+                    chat_id: chat_id,
+                    notes: notes,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    date: date,
+                    situation: situation,
+                    custom_fields: custom_fields
+                });
+                return lead.save();
+            }else {
+                return retlead;
+            }
         });
-        return lead.save();
+
     },
     getLeadByCompany: function (company_id) {
         var Lead = this.model('Lead');

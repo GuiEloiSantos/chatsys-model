@@ -18,14 +18,21 @@ chat.static({
     newChat: function (company_id, chat_id, status) {
         var Chat = this.model('Chat');
         var chat = new Chat();
-        var date = new Date();
-        chat.set({
-            company_id: company_id,
-            chat_id: chat_id,
-            status: status,
-            date: date
+        Chat.findOne({'chat_id':chat_id}).then(function (retchat) {
+           if(!retchat){
+               var date = new Date();
+               chat.set({
+                   company_id: company_id,
+                   chat_id: chat_id,
+                   status: status,
+                   date: date
+               });
+               return chat.save();
+           }else{
+               return retchat;
+           }
         });
-        return chat.save();
+
     },
     getChatByCompany: function (company_id) {
         var Chat = this.model('Chat');
