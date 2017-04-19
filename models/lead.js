@@ -32,26 +32,28 @@ lead.static({
         Lead.getLeadByChatId(chat_id).exec().then(function (lead) {
            if(lead){
                return lead;
+           }else{
+               var newlead = new Lead();
+               var situation = '';
+               if(!name && !email && !phone){
+                   situation = 'SEE TRANSCRIPT';
+               }
+               newlead .set({
+                   company_id: company_id,
+                   chat_id: chat_id,
+                   notes: notes,
+                   name: name,
+                   email: email,
+                   phone: phone,
+                   date: date,
+                   situation: situation,
+                   custom_fields: custom_fields
+               });
+               return newlead.save();
            }
         });
 
-        var lead= new Lead();
-        var situation = '';
-        if(!name && !email && !phone){
-            situation = 'SEE TRANSCRIPT';
-        }
-        lead.set({
-            company_id: company_id,
-            chat_id: chat_id,
-            notes: notes,
-            name: name,
-            email: email,
-            phone: phone,
-            date: date,
-            situation: situation,
-            custom_fields: custom_fields
-        });
-        return lead.save();
+
     },
     getLeadByCompany: function (company_id) {
         var Lead = this.model('Lead');
