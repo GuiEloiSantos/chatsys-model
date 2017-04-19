@@ -31,7 +31,7 @@ lead.static({
         var Lead = this.model('Lead');
         var lead= new Lead();
 
-        Lead.findOne({'chat_id':chat_id}).then(function (retlead) {
+        Lead.findOne({'chat_id':chat_id}).exec().then(function (retlead) {
             if(!retlead){
                 var situation = '';
                 if(!name && !email && !phone){

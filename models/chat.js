@@ -18,7 +18,7 @@ chat.static({
     newChat: function (company_id, chat_id, status) {
         var Chat = this.model('Chat');
         var chat = new Chat();
-        Chat.findOne({'chat_id':chat_id}).then(function (retchat) {
+        Chat.findOne({'chat_id':chat_id}).exec().then(function (retchat) {
            if(!retchat){
                var date = new Date();
                chat.set({
