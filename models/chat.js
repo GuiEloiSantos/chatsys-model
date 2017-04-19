@@ -32,6 +32,10 @@ chat.static({
         var Chat = this.model('Chat');
         return Chat.find({'company_id':company_id});
     },
+    getChatByChatId: function (chat_id) {
+        var Chat = this.model('Chat');
+        return Chat.findOne({'chat_id':chat_id});
+    },
     modifyStatus: function (id,status) {
         var Chat = this.model('Chat');
         Chat.findOne({_id: id}).exec().then(function (chat) {
