@@ -31,7 +31,7 @@ lead.static({
         var Lead = this.model('Lead');
         Lead.getLeadByChatId(chat_id).exec().then(function (lead) {
            if(lead){
-               return lead.save();
+               return lead;
            }
         });
 
