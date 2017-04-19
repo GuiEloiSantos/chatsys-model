@@ -119,7 +119,7 @@ company.static({
         }
         company.set({
             name: name,
-            main_url: data.user_metadata.url
+            main_url: util.formatUrl(data.user_metadata.url)
         });
         return company.save();
     }
