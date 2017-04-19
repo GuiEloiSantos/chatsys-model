@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var util = require('./lib/util');
 var company = new Schema(
     {
         name: String,
@@ -33,7 +34,8 @@ var company = new Schema(
             days: {type: Array, default: []},
             switcher_code: String,
             gtm_code: String,
-            api_key: String
+            api_key: String,
+            custom_form: String
         },
         main_url: String,
         website: {
@@ -91,7 +93,7 @@ company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
     this.set({ phone:phone});
     this.set({ timezone:timezone});
     this.set({ industry:industry});
-    this.set({ main_url:main_url});
+    this.set({ main_url:util.formatUrl(main_url)});
     return this.save();
 };
 company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,switcher_code) {
