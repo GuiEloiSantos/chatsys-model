@@ -62,7 +62,7 @@ user.static({
     /**
      * Get the user details by Auth0 Id
      *
-     * @param  {Object} data from the slash command
+     * @param  {Object} id from the slash command
      * @return {Promise}
      */
     getUserByAuth0Id: function (id) {
@@ -74,10 +74,7 @@ user.static({
         var User = this.model('User');
         var user = new User();
         //for simple signup
-        var name = data.nickname;
-        if (data.hasOwnProperty('user_metadata') && data.user_metadata.name) {
-            name = data.user_metadata.name;
-        }
+
         user.set({
             auth0_user_id: auth0.user_id,
             name: data.ContactName,
