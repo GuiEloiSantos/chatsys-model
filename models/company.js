@@ -13,6 +13,7 @@ var company = new Schema(
         plan: {
             name: String,
             value: {type: Number, default: 0},
+            currency: String,
             customer_id: String,
             subscription_id: String,
             type: {type: String, default: 'normal'},
@@ -35,13 +36,13 @@ var company = new Schema(
             switcher_code: String,
             gtm_code: String,
             api_key: String,
-            custom_form: String
+            custom_form: String,
+            chat_sys_id: String
         },
         main_url: String,
-        website: {
-            urls: {type: Array, default: []},
-            status_cake_id: {type: Array, default: []},
-            status: {type: String, default: 'off'}
+        status_cake: {
+            id: String,
+            status: {type: Boolean, default: false}
         },
         zoho: {
             customer_id: String,
@@ -108,6 +109,49 @@ company.static({
     getCompanyLiveChatId: function (lci_chat) {
         var Company = this.model('Company');
         return Company.findOne({'settings.lci_chat':lci_chat}).exec();
+    },
+    newCompanyFromChatSys: function(data){
+        var Company = this.model('Company');
+        var company = new Company();
+        var status, custom_hours;
+        if(data.Active == 1){
+            status = 'active';
+        }else{
+            status = 'inactive';
+        }
+        custom_hours = (data.SetHours == 1);
+        //for simple signup
+        company.set({
+            name: data.Name,
+            email: data.Email,
+            phone: data.Phone,
+            timezone: data.Tzone,
+            "plan.name": data.plan_name,
+            "plan.value": data.amount,
+            "plan.type": "paid",
+            "plan.status": data.status,
+            "plan.lead_limit": data.PPL_Credit,
+            "plan.chat_limit": data.ppc_limit,
+            "plan.currency": data.currency_code,
+            "settings.lci_chat": data.Groupid,
+            "settings.status":status,
+            "settings.custom_hours.active":custom_hours,
+            "settings.custom_hours.start_time": data.StartHour,
+            "settings.custom_hours.end_time": data.EndHour,
+            "settings.weekends":(data.Weekend==0),
+            "settings.switcher_code":data.CustomCode,
+            "settings.gtm_code":data.conversion_code,
+            "settings.api_key":data.api_key,
+            "settings.custom_form":data.CustomIframe,
+            "settings.chat_sys_id":data.id,
+            "main_url":data.Website,
+            "status_cake.id":data.status_cake_id,
+            "status_cake.status":data.status_website,
+            "zoho.customer_id": data.zoho_id,
+            "zoho.subscription_id": data.zoho_refid
+
+        });
+        return company.save();
     },
     newCompany: function (data) {
         var Company = this.model('Company');

@@ -69,6 +69,27 @@ user.static({
         var User = this.model('User');
         return User.findOne({auth0_user_id: id}).exec();
     },
+
+    newUserChatSys: function (data, id, auth0) {
+        var User = this.model('User');
+        var user = new User();
+        //for simple signup
+        var name = data.nickname;
+        if (data.hasOwnProperty('user_metadata') && data.user_metadata.name) {
+            name = data.user_metadata.name;
+        }
+        user.set({
+            auth0_user_id: auth0.user_id,
+            name: data.ContactName,
+            timezone: data.Tzone,
+            email_verified: true,
+            status: "complete",
+            picture: auth0.picture,
+            company_id: id,
+            email: auth0.email
+        });
+        return user.save();
+    },
     /**
      * Creates a new user in our database
      *
