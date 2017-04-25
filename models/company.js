@@ -84,11 +84,11 @@ company.methods.generateApiKey = function (key) {
     return key;
 };
 company.methods.updateChat = function (chat_actual) {
-    this.set({ chat_actual:chat_actual});
+    this.set({ "plan.chat_actual":chat_actual});
     return this.save();
 };
 company.methods.updateLead = function (lead_actual) {
-    this.set({ lead_actual:lead_actual});
+    this.set({ "plan.lead_actual":lead_actual});
     return this.save();
 };
 company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
