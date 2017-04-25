@@ -146,7 +146,7 @@ company.static({
             "settings.api_key":data.api_key,
             "settings.custom_form":data.CustomIframe,
             "settings.chat_sys_id":data.id,
-            "main_url":data.Website,
+            "main_url":util.formatUrl(data.Website),
             "status_cake.id":data.status_cake_id,
             "status_cake.status":data.status_website,
             "zoho.customer_id": data.zoho_id,
