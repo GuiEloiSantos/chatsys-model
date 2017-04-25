@@ -125,7 +125,7 @@ faq.static({
         var Faq = this.model('Faq');
         return Faq.getFaqByCompanyAndCategory(company_id, askVisitors);
     },
-    getContExit:function (company_id) {
+    getContinueExit:function (company_id) {
         var Faq = this.model('Faq');
         return Faq.getFaqByCompanyAndCategory(company_id, continueExit);
     },
