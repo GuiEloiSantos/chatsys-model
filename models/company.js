@@ -68,27 +68,29 @@ company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
     return this.save();
 };
-
-
 company.methods.activeGTM = function () {
     var data = "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});";
     this.set({"settings.gtm_code": data });
     return this.save();
 };
-
 company.methods.clearGTM = function () {
     var data = "";
     this.set({"settings.gtm_code": data });
     return this.save();
 };
-
 company.methods.generateApiKey = function (key) {
     this.set({"settings.api_key": key });
     this.save();
     return key;
 };
-
-
+company.methods.updateChat = function (chat_actual) {
+    this.set({ chat_actual:chat_actual});
+    return this.save();
+};
+company.methods.updateLead = function (lead_actual) {
+    this.set({ lead_actual:lead_actual});
+    return this.save();
+};
 company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
     this.set({ name:name});
     this.set({ phone:phone});
