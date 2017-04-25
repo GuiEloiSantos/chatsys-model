@@ -80,6 +80,7 @@ user.static({
             name: data.ContactName,
             timezone: data.Tzone,
             email_verified: true,
+            phone: data.Phone,
             status: "complete",
             picture: auth0.picture,
             company_id: id,

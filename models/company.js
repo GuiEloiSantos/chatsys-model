@@ -122,11 +122,11 @@ company.static({
             status = 'inactive';
         }
         custom_hours = (data.SetHours == 1);
-        var leadList = req.body.listleadmail.split(", ");
+        var leadList = data.Email.split(", ");
         //for simple signup
         company.set({
             name: data.Name,
-            email: data.Email,
+            email: data.SupportEmail,
             phone: data.Phone,
             timezone: data.Tzone,
             'lead_email': leadList,
