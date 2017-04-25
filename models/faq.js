@@ -4,6 +4,7 @@ var productInfo     = "PRODUCT INFORMATION";
 var faqs            = "FAQS";
 var basicInfo       = "BASIC INFORMATION";
 var askVisitors     = "ASK VISITORS";
+var continueExit     = "CONTINUE AND EXIT STATEMENT";
 
 
 var faq = new Schema(
@@ -33,10 +34,7 @@ faq.methods.updateCount = function (count) {
 };
 faq.static({
 
-    /**
-     * @param  {String} company_id ,category_id, title, content response from auth0 Api
-     * @return {Promise}
-     */
+
     newFaq: function (company_id,title,content,keywords) {
         var Faq = this.model('Faq');
         var faq = new Faq();
@@ -84,6 +82,17 @@ faq.static({
         });
         return faq.save();
     },
+    newContinueExit: function (company_id,title,content) {
+        var Faq = this.model('Faq');
+        var faq = new Faq();
+        faq.set({
+            company_id: company_id,
+            category_name: continueExit,
+            title: title,
+            content: content
+        });
+        return faq.save();
+    },
     updateAny: function (id,company_id, title, content, keywords, price, order, count) {
         var Faq = this.model('Faq');
         Faq.findOne({_id: id}).exec().then(function (faq) {
@@ -115,6 +124,10 @@ faq.static({
     getAskVisitors:function (company_id) {
         var Faq = this.model('Faq');
         return Faq.getFaqByCompanyAndCategory(company_id, askVisitors);
+    },
+    getContExit:function (company_id) {
+        var Faq = this.model('Faq');
+        return Faq.getFaqByCompanyAndCategory(company_id, continueExit);
     },
 
     getFaqByCompanyAndCategory: function (company_id, category_name) {
