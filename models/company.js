@@ -122,12 +122,14 @@ company.static({
             status = 'inactive';
         }
         custom_hours = (data.SetHours == 1);
+        var leadList = req.body.listleadmail.split(", ");
         //for simple signup
         company.set({
             name: data.Name,
             email: data.Email,
             phone: data.Phone,
             timezone: data.Tzone,
+            'lead_email': leadList,
             "plan.name": data.plan_name,
             "plan.value": data.amount,
             "plan.type": "paid",
@@ -148,7 +150,7 @@ company.static({
             "settings.chat_sys_id":data.id,
             "main_url":util.formatUrl(data.Website),
             "status_cake.id":data.status_cake_id,
-            "status_cake.status":data.status_website,
+            "status_cake.status":(data.status_website==1),
             "zoho.customer_id": data.zoho_id,
             "zoho.subscription_id": data.zoho_refid
 
