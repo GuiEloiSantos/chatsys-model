@@ -108,6 +108,10 @@ company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,s
     return this.save();
 };
 company.static({
+    getCompanyChatSys: function (chat_sys_id) {
+        var Company = this.model('Company');
+        return Company.findOne({'settings.chat_sys_id':chat_sys_id}).exec();
+    },
     getCompanyLiveChatId: function (lci_chat) {
         var Company = this.model('Company');
         return Company.findOne({'settings.lci_chat':lci_chat}).exec();
