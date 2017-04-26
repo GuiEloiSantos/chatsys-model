@@ -145,7 +145,7 @@ company.static({
             "settings.weekends":(data.Weekend==0),
             "settings.switcher_code":data.CustomCode,
             "settings.gtm_code":data.conversion_code,
-            "settings.api_key":data.api_key,
+            "settings.api_key":data.apikey,
             "settings.custom_form":data.CustomIframe,
             "settings.chat_sys_id":data.id,
             "main_url":util.formatUrl(data.Website),
