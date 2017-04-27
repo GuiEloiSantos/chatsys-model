@@ -13,6 +13,7 @@ var user = new Schema(
         email: String,
         picture: String,
         phone: String,
+        plans: { type: Array, default:[] },
         timezone: {type: String, default: 'America/Los_Angeles'},
         syst_admin: {type: Boolean, default: false}
     },
@@ -100,17 +101,24 @@ user.static({
     newUser: function (data, id) {
         var User = this.model('User');
         var user = new User();
+        var plans = [];
         //for simple signup
         var name = data.nickname;
         if (data.hasOwnProperty('user_metadata') && data.user_metadata.name) {
             name = data.user_metadata.name;
         }
+
+        data.plancode1?plans.push(data.plancode1):plans.push("default");
+        data.plancode2?plans.push(data.plancode2):"";
+        data.plancode3?plans.push(data.plancode3):"";
+
         user.set({
             auth0_user_id: data.user_id,
             name: name,
             email_verified: data.email_verified,
             picture: data.picture,
             company_id: id,
+            plans: plans,
             email: data.email
         });
         return user.save();
