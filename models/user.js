@@ -37,7 +37,10 @@ user.methods.updateStatus = function (status) {
     this.set({status: status});
     return this.save();
 };
-
+user.methods.updatePicture = function (picture) {
+    this.set({picture: picture});
+    return this.save();
+};
 user.methods.updateStatusFaq = function () {
     return this.updateStatus("faqs");
 };
