@@ -108,9 +108,9 @@ user.static({
             name = data.user_metadata.name;
         }
 
-        data.plancode1?plans.push(data.plancode1):plans.push("default");
-        data.plancode2?plans.push(data.plancode2):"";
-        data.plancode3?plans.push(data.plancode3):"";
+        data.user_metadata.plancode1?plans.push(data.user_metadata.plancode1):plans.push("default");
+        data.user_metadata.plancode2?plans.push(data.user_metadata.plancode2):"";
+        data.user_metadata.plancode3?plans.push(data.user_metadata.plancode3):"";
 
         user.set({
             auth0_user_id: data.user_id,
