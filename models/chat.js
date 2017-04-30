@@ -15,11 +15,10 @@ var chat = new Schema(
 );
 
 chat.static({
-    newChat: function (company_id, chat_id, status) {
+    newChat: function (company_id, chat_id, status, date) {
         var Chat = this.model('Chat');
         var chat = new Chat();
 
-        var date = new Date();
         chat.set({
             company_id: company_id,
             chat_id: chat_id,
