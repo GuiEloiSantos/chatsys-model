@@ -78,6 +78,12 @@ company.methods.clearGTM = function () {
     this.set({"settings.gtm_code": data });
     return this.save();
 };
+
+company.methods.changeStatus = function (data) {
+    this.set({"settings.status": data });
+    return this.save();
+};
+
 company.methods.generateApiKey = function (key) {
     this.set({"settings.api_key": key });
     this.save();
