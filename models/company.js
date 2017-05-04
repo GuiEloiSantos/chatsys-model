@@ -10,6 +10,7 @@ var company = new Schema(
         industry: String,
         phone: String,
         timezone: {type: String, default: 'America/Los_Angeles'},
+        permission_valid: {type: Boolean, default: true},
         plan: {
             name: String,
             value: {type: Number, default: 0},
