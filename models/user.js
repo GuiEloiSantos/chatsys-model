@@ -49,6 +49,10 @@ user.methods.updateStatusComplete = function () {
     return this.updateStatus("complete");
 };
 
+user.methods.blockUser = function () {
+  return this.updateStatus("block");
+};
+
 user.methods.updateEmailVerification = function (verified) {
     return this.update({email_verified: verified});
 };
