@@ -14,7 +14,8 @@ var lead = new Schema(
         situation: String,
         rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []},
-        date: {type: Date}
+        date: {type: Date},
+        enrich: String
     },
     {
         timestamps: true,
@@ -22,9 +23,10 @@ var lead = new Schema(
     }
 );
 
-
-
-
+lead.methods.SetEnrich = function (data) {
+    this.set({enrich: data });
+    return this.save();
+};
 
 lead.static({
     newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
