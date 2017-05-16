@@ -32,10 +32,15 @@ var company = new Schema(
                 start_time: String,
                 end_time: String
             },
+            webhooks:{
+                onLead: String,
+                onChat: String
+            },
             weekends: {type: Boolean, default: true},
             days: {type: Array, default: []},
             switcher_code: String,
             gtm_code: String,
+            ga_code: true,
             api_key: String,
             custom_form: String,
             chat_sys_id: String
@@ -79,12 +84,19 @@ company.methods.clearGTM = function () {
     this.set({"settings.gtm_code": data });
     return this.save();
 };
-
+company.methods.setGA = function (bool) {
+    this.set({"settings.ga_code": bool });
+    return this.save();
+};
+company.methods.saveHooks = function (onLead, onChat) {
+    this.set({"company.settings.webhooks.onLead":onLead});
+    this.set({"company.settings.webhooks.onChat":onChat});
+    return this.save();
+};
 company.methods.changeStatus = function (data) {
     this.set({"settings.status": data });
     return this.save();
 };
-
 company.methods.generateApiKey = function (key) {
     this.set({"settings.api_key": key });
     this.save();
