@@ -89,8 +89,8 @@ company.methods.setGA = function (bool) {
     return this.save();
 };
 company.methods.saveHooks = function (onLead, onChat) {
-    this.set({"company.settings.webhooks.onLead":onLead});
-    this.set({"company.settings.webhooks.onChat":onChat});
+    this.set({"settings.webhooks.onLead":onLead});
+    this.set({"settings.webhooks.onChat":onChat});
     return this.save();
 };
 company.methods.changeStatus = function (data) {
