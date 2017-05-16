@@ -40,7 +40,7 @@ var company = new Schema(
             days: {type: Array, default: []},
             switcher_code: String,
             gtm_code: String,
-            ga_code: true,
+            ga_code: {type: Boolean, default: false},
             api_key: String,
             custom_form: String,
             chat_sys_id: String
