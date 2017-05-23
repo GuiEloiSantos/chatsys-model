@@ -110,9 +110,10 @@ company.methods.updateLead = function (lead_actual) {
     this.set({ "plan.lead_actual":lead_actual});
     return this.save();
 };
-company.methods.updateBasic = function (name,phone,timezone,industry,main_url) {
+company.methods.updateBasic = function (name,phone,timezone,industry,main_url,email) {
     this.set({ name:name});
     this.set({ phone:phone});
+    this.set({ email:email});
     this.set({ timezone:timezone});
     this.set({ industry:industry});
     this.set({ main_url:util.formatUrl(main_url)});
