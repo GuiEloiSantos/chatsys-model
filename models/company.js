@@ -128,6 +128,10 @@ company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,s
     return this.save();
 };
 company.static({
+    getCompanyApi: function (user, api_key) {
+        var Company = this.model('Company');
+        return Company.findOne({'email':user,'settings.api_key':api_key}).exec();
+    },
     getCompanyChatSys: function (chat_sys_id) {
         var Company = this.model('Company');
         return Company.findOne({'settings.chat_sys_id':chat_sys_id}).exec();
