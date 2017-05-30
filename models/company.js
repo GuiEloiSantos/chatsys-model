@@ -45,6 +45,7 @@ var company = new Schema(
             custom_form: String,
             custom_iframe_code: String,
             custom_iframe_window: String,
+            custom_iframe_window_name: String,
             chat_sys_id: String
         },
         main_url: String,
@@ -62,10 +63,11 @@ var company = new Schema(
         versionKey: false
     }
 );
-company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window) {
+company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window,custom_iframe_window_name) {
     this.set({'settings.custom_form': custom_form});
     this.set({'settings.custom_iframe_code': custom_iframe_code});
     this.set({'settings.custom_iframe_window': custom_iframe_window});
+    this.set({'settings.custom_iframe_window_name': custom_iframe_window_name});
     return this.save();
 };
 
