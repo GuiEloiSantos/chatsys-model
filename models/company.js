@@ -43,6 +43,8 @@ var company = new Schema(
             ga_code: {type: Boolean, default: false},
             api_key: String,
             custom_form: String,
+            custom_iframe_code: String,
+            custom_iframe_window: String,
             chat_sys_id: String
         },
         main_url: String,
@@ -60,6 +62,13 @@ var company = new Schema(
         versionKey: false
     }
 );
+company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window) {
+    this.set({'settings.custom_form': custom_form});
+    this.set({'settings.custom_iframe_code': custom_iframe_code});
+    this.set({'settings.custom_iframe_window': custom_iframe_window});
+    return this.save();
+};
+
 company.methods.addLeadEmail = function (leadEmail) {
     var LeadEmail = this.get('lead_email');
     LeadEmail.push(leadEmail);
