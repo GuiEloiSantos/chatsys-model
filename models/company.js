@@ -81,6 +81,10 @@ company.methods.replaceList = function (leadList) {
     this.set('lead_email', leadList);
     return this.save();
 };
+company.methods.replacePermission = function (permission) {
+    this.set('permission', permission);
+    return this.save();
+};
 company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
     return this.save();
