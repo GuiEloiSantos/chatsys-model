@@ -25,7 +25,7 @@ var company = new Schema(
             chat_actual: {type: Number, default: 0}
         },
         settings: {
-            lci_chat: {type: Number, default: 0},
+            lci_chat: {type: Number, default: 9999990},
             status: {type: String, default: 'active'},
             custom_hours: {
                 active: {type: Boolean, default: false},
