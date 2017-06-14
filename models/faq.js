@@ -46,7 +46,7 @@ faq.static({
     newFaq: function (company_id,title,content,keywords, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
+        var historic = [];
         var hist = {title:title, content:content,status:status,user:user,date:new Date()};
         historic.push(hist);
 
@@ -65,7 +65,7 @@ faq.static({
     newAskVisitors: function (company_id,title,content,order, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
+        var historic = [];
         var hist = {title:title, content:content,status:status,user:user,date:new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
@@ -84,7 +84,7 @@ faq.static({
     newBasicInformation: function (company_id,title,content, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
+        var historic = [];
         var hist = {title:title, content:content,status:status,user:user,date:new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
@@ -102,7 +102,7 @@ faq.static({
     newProductInformation: function (company_id,title,content,price, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
+        var historic = [];
         var hist = {title:title, content:content,status:status,user:user,date:new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
@@ -120,7 +120,7 @@ faq.static({
     newContinueExit: function (company_id,title,content, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
+        var historic = [];
         var hist = {title:title, content:content,status:status,user:user,date:new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
@@ -137,12 +137,13 @@ faq.static({
     updateAny: function (id,company_id, title, content, keywords, price, order, count, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
-        var historic = this.get('historic');
-        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
-        historic.push(hist);
+
 
         var Faq = this.model('Faq');
         Faq.findOne({_id: id}).exec().then(function (faq) {
+            var historic = faq.get('historic');
+            var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+            historic.push(hist);
             return faq.update({
                 company_id: company_id,
                 title: title,
