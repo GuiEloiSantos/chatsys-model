@@ -15,8 +15,6 @@ var company = new Schema(
             name: String,
             value: {type: Number, default: 0},
             currency: String,
-            customer_id: String,
-            subscription_id: String,
             type: {type: String, default: 'normal'},
             status: String,
             lead_limit: {type: Number, default: 0},
@@ -33,7 +31,7 @@ var company = new Schema(
                 start_time: String,
                 end_time: String
             },
-            webhooks:{
+            webhooks: {
                 onLead: String,
                 onChat: String
             },
@@ -64,11 +62,24 @@ var company = new Schema(
         versionKey: false
     }
 );
-company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window,custom_iframe_window_name) {
+company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window, custom_iframe_window_name) {
     this.set({'settings.custom_form': custom_form});
     this.set({'settings.custom_iframe_code': custom_iframe_code});
     this.set({'settings.custom_iframe_window': custom_iframe_window});
     this.set({'settings.custom_iframe_window_name': custom_iframe_window_name});
+    return this.save();
+};
+
+company.methods.updatePlanDetails = function (name, value, currency,type,status,lead_limit,chat_limit,lead_price,subscription_id) {
+    this.set({'plan.name': name});
+    this.set({'plan.value': value});
+    this.set({'plan.currency': currency});
+    this.set({'plan.type': type});
+    this.set({'plan.status': status});
+    this.set({'plan.lead_limit': lead_limit});
+    this.set({'plan.chat_limit': chat_limit});
+    this.set({'plan.lead_price': lead_price});
+    this.set({'zoho.subscription_id':subscription_id});
     return this.save();
 };
 
@@ -92,77 +103,81 @@ company.methods.updateIndustry = function (industry) {
 };
 company.methods.activeGTM = function () {
     var data = "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});";
-    this.set({"settings.gtm_code": data });
+    this.set({"settings.gtm_code": data});
     return this.save();
 };
 company.methods.clearGTM = function () {
     var data = "";
-    this.set({"settings.gtm_code": data });
+    this.set({"settings.gtm_code": data});
     return this.save();
 };
 company.methods.setGA = function (bool) {
-    this.set({"settings.ga_code": bool });
+    this.set({"settings.ga_code": bool});
     return this.save();
 };
 company.methods.saveHooks = function (onLead, onChat) {
-    this.set({"settings.webhooks.onLead":onLead});
-    this.set({"settings.webhooks.onChat":onChat});
+    this.set({"settings.webhooks.onLead": onLead});
+    this.set({"settings.webhooks.onChat": onChat});
     return this.save();
 };
 company.methods.changeStatus = function (data) {
-    this.set({"settings.status": data });
+    this.set({"settings.status": data});
     return this.save();
 };
 company.methods.generateApiKey = function (key) {
-    this.set({"settings.api_key": key });
+    this.set({"settings.api_key": key});
     this.save();
     return key;
 };
 company.methods.updateChat = function (chat_actual) {
-    this.set({ "plan.chat_actual":chat_actual});
+    this.set({"plan.chat_actual": chat_actual});
     return this.save();
 };
 company.methods.updateLead = function (lead_actual) {
-    this.set({ "plan.lead_actual":lead_actual});
+    this.set({"plan.lead_actual": lead_actual});
     return this.save();
 };
-company.methods.updateBasic = function (name,phone,timezone,industry,main_url,email) {
-    this.set({ name:name});
-    this.set({ phone:phone});
-    this.set({ email:email});
-    this.set({ timezone:timezone});
-    this.set({ industry:industry});
-    this.set({ main_url:util.formatUrl(main_url)});
+company.methods.updateBasic = function (name, phone, timezone, industry, main_url, email) {
+    this.set({name: name});
+    this.set({phone: phone});
+    this.set({email: email});
+    this.set({timezone: timezone});
+    this.set({industry: industry});
+    this.set({main_url: util.formatUrl(main_url)});
     return this.save();
 };
-company.methods.updateSettings = function (cust_h,start_time,end_time,weekends,switcher_code) {
-    this.set({ "settings.weekends":weekends});
-    this.set({ "settings.custom_hours.active":cust_h});
-    this.set({ "settings.switcher_code":switcher_code});
-    this.set({ "settings.custom_hours.start_time":start_time});
-    this.set({ "settings.custom_hours.end_time":end_time});
+company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code) {
+    this.set({"settings.weekends": weekends});
+    this.set({"settings.custom_hours.active": cust_h});
+    this.set({"settings.switcher_code": switcher_code});
+    this.set({"settings.custom_hours.start_time": start_time});
+    this.set({"settings.custom_hours.end_time": end_time});
     return this.save();
 };
 company.static({
     getCompanyApi: function (user, api_key) {
         var Company = this.model('Company');
-        return Company.findOne({'email':user,'settings.api_key':api_key}).exec();
+        return Company.findOne({'email': user, 'settings.api_key': api_key}).exec();
     },
     getCompanyChatSys: function (chat_sys_id) {
         var Company = this.model('Company');
-        return Company.findOne({'settings.chat_sys_id':chat_sys_id}).exec();
+        return Company.findOne({'settings.chat_sys_id': chat_sys_id}).exec();
+    },
+    getCompanyByCustomerId: function (customer_id) {
+        var Company = this.model('Company');
+        return Company.findOne({"zoho.customer_id": customer_id}).exec();
     },
     getCompanyLiveChatId: function (lci_chat) {
         var Company = this.model('Company');
-        return Company.findOne({'settings.lci_chat':lci_chat}).exec();
+        return Company.findOne({'settings.lci_chat': lci_chat}).exec();
     },
-    newCompanyFromChatSys: function(data){
+    newCompanyFromChatSys: function (data) {
         var Company = this.model('Company');
         var company = new Company();
         var status, custom_hours;
-        if(data.Active == 1){
+        if (data.Active == 1) {
             status = 'active';
-        }else{
+        } else {
             status = 'inactive';
         }
         custom_hours = (data.SetHours == 1);
@@ -182,19 +197,19 @@ company.static({
             "plan.chat_limit": data.ppc_limit,
             "plan.currency": data.currency_code,
             "settings.lci_chat": data.Groupid,
-            "settings.status":status,
-            "settings.custom_hours.active":custom_hours,
+            "settings.status": status,
+            "settings.custom_hours.active": custom_hours,
             "settings.custom_hours.start_time": data.StartHour,
             "settings.custom_hours.end_time": data.EndHour,
-            "settings.weekends":(data.Weekend==0),
-            "settings.switcher_code":data.CustomCode,
-            "settings.gtm_code":data.conversion_code,
-            "settings.api_key":data.apikey,
-            "settings.custom_form":data.CustomIframe,
-            "settings.chat_sys_id":data.id,
-            "main_url":util.formatUrl(data.Website),
-            "status_cake.id":data.status_cake_id,
-            "status_cake.status":(data.status_website==1),
+            "settings.weekends": (data.Weekend == 0),
+            "settings.switcher_code": data.CustomCode,
+            "settings.gtm_code": data.conversion_code,
+            "settings.api_key": data.apikey,
+            "settings.custom_form": data.CustomIframe,
+            "settings.chat_sys_id": data.id,
+            "main_url": util.formatUrl(data.Website),
+            "status_cake.id": data.status_cake_id,
+            "status_cake.status": (data.status_website == 1),
             "zoho.customer_id": data.zoho_id,
             "zoho.subscription_id": data.zoho_refid
 
@@ -216,7 +231,6 @@ company.static({
         return company.save();
     }
 });
-
 
 
 module.exports = mongoose.model('Company', company);
