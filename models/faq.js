@@ -13,10 +13,18 @@ var faq = new Schema(
         category_name:  String,
         title:          String,
         content:        String,
+        status:         {type: String, default: "Approved"},
         keywords:       {type: Array, default: []},
         price:          String,
         order:          {type: Number, default: 0},
-        count:          {type: Number, default: 0}
+        count:          {type: Number, default: 0},
+        historic:        [{
+            title : String,
+            content : String,
+            status: String,
+            user: String,
+            date: {type: Date}
+        }]
     },
     {
         timestamps: true,
@@ -35,7 +43,13 @@ faq.methods.updateCount = function (count) {
 faq.static({
 
 
-    newFaq: function (company_id,title,content,keywords) {
+    newFaq: function (company_id,title,content,keywords, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
+
         var Faq = this.model('Faq');
         var faq = new Faq();
         faq.set({
@@ -43,11 +57,17 @@ faq.static({
             category_name: faqs,
             title: title,
             content: content,
-            keywords: keywords
+            keywords: keywords,
+            historic:historic
         });
         return faq.save();
     },
-    newAskVisitors: function (company_id,title,content,order) {
+    newAskVisitors: function (company_id,title,content,order, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
         var Faq = this.model('Faq');
         var faq = new Faq();
         faq.set({
@@ -55,22 +75,36 @@ faq.static({
             category_name: askVisitors,
             title: title,
             content: content,
-            order: order
+            order: order,
+            historic:historic
         });
         return faq.save();
     },
-    newBasicInformation: function (company_id,title,content) {
+    // To change in case we need
+    newBasicInformation: function (company_id,title,content, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
         var Faq = this.model('Faq');
         var faq = new Faq();
         faq.set({
             company_id: company_id,
             category_name: basicInfo,
             title: title,
-            content: content
+            content: content,
+            historic:historic
         });
         return faq.save();
     },
-    newProductInformation: function (company_id,title,content,price) {
+    // To change in case we need
+    newProductInformation: function (company_id,title,content,price, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
         var Faq = this.model('Faq');
         var faq = new Faq();
         faq.set({
@@ -78,22 +112,35 @@ faq.static({
             category_name: productInfo,
             title: title,
             content: content,
-            price: price
+            price: price,
+            historic:historic
         });
         return faq.save();
     },
-    newContinueExit: function (company_id,title,content) {
+    newContinueExit: function (company_id,title,content, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
         var Faq = this.model('Faq');
         var faq = new Faq();
         faq.set({
             company_id: company_id,
             category_name: continueExit,
             title: title,
-            content: content
+            content: content,
+            historic:historic
         });
         return faq.save();
     },
-    updateAny: function (id,company_id, title, content, keywords, price, order, count) {
+    updateAny: function (id,company_id, title, content, keywords, price, order, count, status, user) {
+        status = status?status:"Approved";
+        user = user?user:"System";
+        var historic = this.get('historic');
+        var hist = {title:title, content:content,status:status,user:user,date:new Date()};
+        historic.push(hist);
+
         var Faq = this.model('Faq');
         Faq.findOne({_id: id}).exec().then(function (faq) {
             return faq.update({
@@ -103,7 +150,8 @@ faq.static({
                 price: price,
                 keywords: keywords,
                 order: order,
-                count: count
+                count: count,
+                historic:historic
             });
         });
 
