@@ -22,7 +22,8 @@ var company = new Schema(
             lead_limit: {type: Number, default: 0},
             lead_actual: {type: Number, default: 0},
             chat_limit: {type: Number, default: 0},
-            chat_actual: {type: Number, default: 0}
+            chat_actual: {type: Number, default: 0},
+            lead_price: {type: Number, default: 15}
         },
         settings: {
             lci_chat: {type: Number, default: 9999990},
