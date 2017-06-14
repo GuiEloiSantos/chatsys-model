@@ -58,6 +58,7 @@ faq.static({
             title: title,
             content: content,
             keywords: keywords,
+            status: status,
             historic:historic
         });
         return faq.save();
@@ -76,6 +77,7 @@ faq.static({
             title: title,
             content: content,
             order: order,
+            status: status,
             historic:historic
         });
         return faq.save();
@@ -94,6 +96,7 @@ faq.static({
             category_name: basicInfo,
             title: title,
             content: content,
+            status: status,
             historic:historic
         });
         return faq.save();
@@ -113,6 +116,7 @@ faq.static({
             title: title,
             content: content,
             price: price,
+            status: status,
             historic:historic
         });
         return faq.save();
@@ -130,6 +134,7 @@ faq.static({
             category_name: continueExit,
             title: title,
             content: content,
+            status: status,
             historic:historic
         });
         return faq.save();
@@ -152,6 +157,7 @@ faq.static({
                 keywords: keywords,
                 order: order,
                 count: count,
+                status: status,
                 historic:historic
             });
         });
