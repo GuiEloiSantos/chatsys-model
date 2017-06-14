@@ -41,7 +41,7 @@ faq.methods.updateCount = function (count) {
     return this.save();
 };
 faq.static({
-
+//get
 
     newFaq: function (company_id,title,content,keywords, status, user) {
         status = status?status:"Approved";
