@@ -79,6 +79,10 @@ user.static({
         return User.findOne({auth0_user_id: id}).exec();
     },
 
+    getUserByCompanyId: function (id) {
+        var User = this.model('User');
+        return User.findOne({company_id: id}).exec();
+    },
     newUserChatSys: function (data, id, auth0) {
         var User = this.model('User');
         var user = new User();

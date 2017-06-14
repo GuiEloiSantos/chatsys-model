@@ -70,7 +70,7 @@ company.methods.updateIframeSettings = function (custom_form, custom_iframe_code
     return this.save();
 };
 
-company.methods.updatePlanDetails = function (name, value, currency,type,status,lead_limit,chat_limit,lead_price,subscription_id) {
+company.methods.updatePlanDetails = function (name, value, currency,type,status,lead_limit,chat_limit,lead_price,subscription_id,lci_chat) {
     this.set({'plan.name': name});
     this.set({'plan.value': value});
     this.set({'plan.currency': currency});
@@ -79,6 +79,7 @@ company.methods.updatePlanDetails = function (name, value, currency,type,status,
     this.set({'plan.lead_limit': lead_limit});
     this.set({'plan.chat_limit': chat_limit});
     this.set({'plan.lead_price': lead_price});
+    this.set({'settings.lci_chat':lci_chat});
     this.set({'zoho.subscription_id':subscription_id});
     return this.save();
 };
