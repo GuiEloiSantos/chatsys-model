@@ -139,7 +139,7 @@ faq.static({
         });
         return faq.save();
     },
-    updateAny: function (id,company_id, title, content, keywords, price, order, count, status, user) {
+    updateAny: function (id, title, content, keywords, price, order, count, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
 
@@ -150,7 +150,6 @@ faq.static({
             var hist = {title:title, content:content,status:status,user:user,date:new Date()};
             historic.push(hist);
             return faq.update({
-                company_id: company_id,
                 title: title,
                 content: content,
                 price: price,
