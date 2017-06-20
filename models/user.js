@@ -52,8 +52,8 @@ user.methods.updateStatusComplete = function () {
 user.methods.blockUser = function () {
   return this.updateStatus("block");
 };
-user.methods.setAsUserAdmin = function () {
-    return this.update({syst_admin: true});
+user.methods.setUserAdmin = function (admin) {
+    return this.update({syst_admin: admin});
 };
 user.methods.updateEmailVerification = function (verified) {
     return this.update({email_verified: verified});
