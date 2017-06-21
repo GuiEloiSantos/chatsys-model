@@ -21,7 +21,9 @@ var company = new Schema(
             lead_actual: {type: Number, default: 0},
             chat_limit: {type: Number, default: 0},
             chat_actual: {type: Number, default: 0},
-            lead_price: {type: Number, default: 15}
+            lead_price: {type: Number, default: 15},
+            chat_price: {type: Number, default: 5},
+            expiry_date:{type: Date}
         },
         settings: {
             lci_chat: {type: Number, default: 9999990},
@@ -138,6 +140,12 @@ company.methods.updateLead = function (lead_actual) {
     this.set({"plan.lead_actual": lead_actual});
     return this.save();
 };
+company.methods.updateZoho = function (customer_id,subscription_id) {
+    this.set({"zoho.customer_id": subscription_id});
+    this.set({"zoho.subscription_id": customer_id});
+    return this.save();
+};
+
 company.methods.updateBasic = function (name, phone, timezone, industry, main_url, email) {
     this.set({name: name});
     this.set({phone: phone});
@@ -153,6 +161,19 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
     this.set({"settings.switcher_code": switcher_code});
     this.set({"settings.custom_hours.start_time": start_time});
     this.set({"settings.custom_hours.end_time": end_time});
+    return this.save();
+};
+company.methods.updatePlan = function (name, value, currency, type, status, lead_limit,  chat_limit,  lead_price, chat_price, expiry_date) {
+    this.set({"plan.name": name});
+    this.set({"plan.value": value});
+    this.set({"plan.currency": currency});
+    this.set({"plan.type": type});
+    this.set({"plan.status": status});
+    this.set({"plan.lead_limit": lead_limit});
+    this.set({"plan.chat_limit": chat_limit});
+    this.set({"plan.lead_price": lead_price});
+    this.set({"plan.chat_price": chat_price});
+    this.set({"plan.expiry_date": expiry_date});
     return this.save();
 };
 company.static({
