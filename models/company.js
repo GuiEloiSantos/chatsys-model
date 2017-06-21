@@ -213,7 +213,9 @@ company.static({
             status = 'inactive';
         }
         custom_hours = (data.SetHours == 1);
-        var leadList = data.Email.split(", ");
+        var leadList = [];
+        var expiry = data.contract_expiry_date.split('-');
+        var expiry_date = new Date(expiry[0], expiry[1]-1, expiry[2]);
         //for simple signup
         company.set({
             name: data.Name,
@@ -225,8 +227,11 @@ company.static({
             "plan.value": data.amount,
             "plan.type": "paid",
             "plan.status": data.status,
-            "plan.lead_limit": data.PPL_Credit,
-            "plan.chat_limit": data.ppc_limit,
+            "plan.lead_limit": data.PPL_Credit>1?data.PPL_Credit:-1,
+            "plan.chat_limit": data.ppc_limit>1?data.ppc_limit:-1,
+            "plan.lead_price": data.ppl_client>1?data.ppl_client:0,
+            "plan.chat_price": data.ppc_client>1?data.ppc_client:0,
+            "plan.expiry_date": expiry_date,
             "plan.currency": data.currency_code,
             "settings.lci_chat": data.Groupid,
             "settings.status": status,
