@@ -165,15 +165,25 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
 };
 company.methods.updatePlan = function (name, value, currency, type, status, lead_limit,  chat_limit,  lead_price, chat_price, expiry_date) {
     this.set({"plan.name": name});
+    console.log(name);
     this.set({"plan.value": value});
+    console.log(value);
     this.set({"plan.currency": currency});
+    console.log(currency);
     this.set({"plan.type": type});
+    console.log(type);
     this.set({"plan.status": status});
+    console.log(status);
     this.set({"plan.lead_limit": lead_limit});
+    console.log(lead_limit);
     this.set({"plan.chat_limit": chat_limit});
+    console.log(chat_limit);
     this.set({"plan.lead_price": lead_price});
+    console.log(lead_price);
     this.set({"plan.chat_price": chat_price});
+    console.log(chat_price);
     this.set({"plan.expiry_date": expiry_date});
+    console.log(expiry_date);
     return this.save();
 };
 company.static({
