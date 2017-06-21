@@ -23,7 +23,7 @@ var company = new Schema(
             chat_actual: {type: Number, default: 0},
             lead_price: {type: Number, default: 15},
             chat_price: {type: Number, default: 5},
-            expiry_date:{type: Date}
+            expiry_date: {type: Date}
         },
         settings: {
             lci_chat: {type: Number, default: 9999990},
@@ -72,7 +72,7 @@ company.methods.updateIframeSettings = function (custom_form, custom_iframe_code
     return this.save();
 };
 
-company.methods.updatePlanDetails = function (name, value, currency,type,status,lead_limit,chat_limit,lead_price,subscription_id,lci_chat) {
+company.methods.updatePlanDetails = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, subscription_id, lci_chat) {
     this.set({'plan.name': name});
     this.set({'plan.value': value});
     this.set({'plan.currency': currency});
@@ -81,8 +81,8 @@ company.methods.updatePlanDetails = function (name, value, currency,type,status,
     this.set({'plan.lead_limit': lead_limit});
     this.set({'plan.chat_limit': chat_limit});
     this.set({'plan.lead_price': lead_price});
-    this.set({'settings.lci_chat':lci_chat});
-    this.set({'zoho.subscription_id':subscription_id});
+    this.set({'settings.lci_chat': lci_chat});
+    this.set({'zoho.subscription_id': subscription_id});
     return this.save();
 };
 
@@ -140,7 +140,7 @@ company.methods.updateLead = function (lead_actual) {
     this.set({"plan.lead_actual": lead_actual});
     return this.save();
 };
-company.methods.updateZoho = function (customer_id,subscription_id) {
+company.methods.updateZoho = function (customer_id, subscription_id) {
     this.set({"zoho.customer_id": subscription_id});
     this.set({"zoho.subscription_id": customer_id});
     return this.save();
@@ -163,7 +163,7 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
     this.set({"settings.custom_hours.end_time": end_time});
     return this.save();
 };
-company.methods.updatePlan = function (name, value, currency, type, status, lead_limit,  chat_limit,  lead_price, chat_price, expiry_date) {
+company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date) {
     this.set({"plan.name": name});
     console.log(name);
     this.set({"plan.value": value});
@@ -214,8 +214,14 @@ company.static({
         }
         custom_hours = (data.SetHours == 1);
         var leadList = [];
-        var expiry = data.contract_expiry_date.split('-');
-        var expiry_date = new Date(expiry[0], expiry[1]-1, expiry[2]);
+
+        var expiry_date;
+        if (data.contract_expiry_date) {
+            var expiry = data.contract_expiry_date.split('-');
+            expiry_date = new Date(expiry[0], expiry[1] - 1, expiry[2]);
+        } else {
+            expiry_date = new Date();
+        }
         //for simple signup
         company.set({
             name: data.Name,
@@ -227,10 +233,10 @@ company.static({
             "plan.value": data.amount,
             "plan.type": "paid",
             "plan.status": data.status,
-            "plan.lead_limit": data.PPL_Credit>1?data.PPL_Credit:-1,
-            "plan.chat_limit": data.ppc_limit>1?data.ppc_limit:-1,
-            "plan.lead_price": data.ppl_client>1?data.ppl_client:0,
-            "plan.chat_price": data.ppc_client>1?data.ppc_client:0,
+            "plan.lead_limit": data.PPL_Credit > 1 ? data.PPL_Credit : -1,
+            "plan.chat_limit": data.ppc_limit > 1 ? data.ppc_limit : -1,
+            "plan.lead_price": data.ppl_client > 1 ? data.ppl_client : 0,
+            "plan.chat_price": data.ppc_client > 1 ? data.ppc_client : 0,
             "plan.expiry_date": expiry_date,
             "plan.currency": data.currency_code,
             "settings.lci_chat": data.Groupid,
