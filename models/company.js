@@ -11,6 +11,12 @@ var company = new Schema(
         phone: String,
         timezone: {type: String, default: 'America/Los_Angeles'},
         permission_valid: {type: Boolean, default: true},
+        historic:        [{
+            target : String,
+            changes : String,
+            user: String,
+            date: {type: Date}
+        }],
         plan: {
             name: String,
             value: {type: Number, default: 0},
@@ -64,7 +70,16 @@ var company = new Schema(
         versionKey: false
     }
 );
-company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window, custom_iframe_window_name) {
+company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window, custom_iframe_window_name, user) {
+    user = user?user:"System";
+    var content = "Custom form: "+custom_form+"</br>Custom iFrame code: "+custom_iframe_code+"</br>Custom iFrame Window: "+custom_iframe_window+"</br>Custom iFrame Window Name";
+
+    var historic = [];
+    var hist = {target:"iFrame Settings", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
+
     this.set({'settings.custom_form': custom_form});
     this.set({'settings.custom_iframe_code': custom_iframe_code});
     this.set({'settings.custom_iframe_window': custom_iframe_window});
@@ -104,30 +119,82 @@ company.methods.updateIndustry = function (industry) {
     this.set({industry: industry});
     return this.save();
 };
-company.methods.activeGTM = function () {
+company.methods.activeGTM = function (user) {
+    user = user?user:"System";
+    var content = "Activated Tag Manager";
+
+    var historic = [];
+    var hist = {target:"Google Tag Manager", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
+
     var data = "dataLayer.push({'eventCategory': 'Lead','eventAction': 'Captured','eventLabel': 'Chat Lead','event': 'chat-lead'});";
     this.set({"settings.gtm_code": data});
     return this.save();
 };
-company.methods.clearGTM = function () {
+company.methods.clearGTM = function (user) {
+    user = user?user:"System";
+    var content = "Deactivated Tag Manager";
+
+    var historic = [];
+    var hist = {target:"Google Tag Manager", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+    this.set({historic: historic});
+
     var data = "";
     this.set({"settings.gtm_code": data});
     return this.save();
 };
-company.methods.setGA = function (bool) {
+company.methods.setGA = function (bool, user) {
+    user = user?user:"System";
+    var content = bool?"Activated Google Analytics":"Deactivated Google Analytics";
+
+    var historic = [];
+    var hist = {target:"Google Analytics", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+    this.set({historic: historic});
+
+
     this.set({"settings.ga_code": bool});
     return this.save();
 };
-company.methods.saveHooks = function (onLead, onChat) {
+company.methods.saveHooks = function (onLead, onChat, user) {
+    user = user?user:"System";
+    var content = "On Chat: "+onChat+"</br> On Lead: "+onLead;
+
+    var historic = [];
+    var hist = {target:"Web Hook", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+    this.set({historic: historic});
+
     this.set({"settings.webhooks.onLead": onLead});
     this.set({"settings.webhooks.onChat": onChat});
     return this.save();
 };
-company.methods.changeStatus = function (data) {
+company.methods.changeStatus = function (data, user) {
+    user = user?user:"System";
+    var content = data=="active"?"Turned ON":"Turned OFF";
+
+    var historic = [];
+    var hist = {target:"Chat Status", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
+
+
     this.set({"settings.status": data});
     return this.save();
 };
-company.methods.generateApiKey = function (key) {
+company.methods.generateApiKey = function (key, user) {
+    user = user?user:"System";
+    var content = "Generate you an API Key";
+
+    var historic = [];
+    var hist = {target:"API Key", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
     this.set({"settings.api_key": key});
     this.save();
     return key;
@@ -146,7 +213,15 @@ company.methods.updateZoho = function (customer_id, subscription_id) {
     return this.save();
 };
 
-company.methods.updateBasic = function (name, phone, timezone, industry, main_url, email) {
+company.methods.updateBasic = function (name, phone, timezone, industry, main_url, email, user) {
+    user = user?user:"System";
+    var content = "Name: "+name+"</br>Phone: "+phone+"</br>Timezone: "+timezone+"</br>Industry: "+industry+"</br>Email: "+email;
+
+    var historic = [];
+    var hist = {target:"Basic Company Information", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
     this.set({name: name});
     this.set({phone: phone});
     this.set({email: email});
@@ -155,7 +230,16 @@ company.methods.updateBasic = function (name, phone, timezone, industry, main_ur
     this.set({main_url: util.formatUrl(main_url)});
     return this.save();
 };
-company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code) {
+company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code, user) {
+    user = user?user:"System";
+    var content = "";
+    weekends?content+="Weekends OFF </br>":content+="Weekends OFF </br>";
+    cust_h?content+="Custom hours from "+start_time+" to "+end_time+"</br>":content+="Custom hours OFF </br>";
+    var historic = [];
+    var hist = {target:"Chat settings", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
     this.set({"settings.weekends": weekends});
     this.set({"settings.custom_hours.active": cust_h});
     this.set({"settings.switcher_code": switcher_code});
@@ -165,25 +249,15 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
 };
 company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date) {
     this.set({"plan.name": name});
-    console.log(name);
     this.set({"plan.value": value});
-    console.log(value);
     this.set({"plan.currency": currency});
-    console.log(currency);
     this.set({"plan.type": type});
-    console.log(type);
     this.set({"plan.status": status});
-    console.log(status);
     this.set({"plan.lead_limit": lead_limit});
-    console.log(lead_limit);
     this.set({"plan.chat_limit": chat_limit});
-    console.log(chat_limit);
     this.set({"plan.lead_price": lead_price});
-    console.log(lead_price);
     this.set({"plan.chat_price": chat_price});
-    console.log(chat_price);
     this.set({"plan.expiry_date": expiry_date});
-    console.log(expiry_date);
     return this.save();
 };
 company.static({
