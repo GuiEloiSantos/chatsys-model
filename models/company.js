@@ -352,7 +352,16 @@ company.static({
         if (data.hasOwnProperty('user_metadata') && data.user_metadata.name) {
             name = data.user_metadata.company;
         }
+        var user = "System";
+        var content = "Company was created";
+
+        var historic = [];
+        var hist = {target:"Company Created", changes:content,user:user,date:new Date()};
+        historic.push(hist);
+
+
         company.set({
+            historic: historic,
             name: name,
             main_url: util.formatUrl(data.user_metadata.url)
         });
