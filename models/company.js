@@ -72,7 +72,7 @@ var company = new Schema(
 );
 company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window, custom_iframe_window_name, user) {
     user = user?user:"System";
-    var content = "Custom form: "+custom_form+" Custom iFrame code: "+custom_iframe_code+" Custom iFrame Window: "+custom_iframe_window+" Custom iFrame Window Name";
+    var content = "Custom form: "+custom_form+" Custom iFrame code: "+custom_iframe_code+" Custom iFrame Window: "+custom_iframe_window+" Custom iFrame Window Name: "+custom_iframe_window_name;
 
     var historic = this.historic;
     var hist = {target:"iFrame Settings", changes:content,user:user,date:new Date()};
@@ -298,8 +298,17 @@ company.static({
         } else {
             expiry_date = new Date();
         }
+
+        var user = "System";
+        var content = "Company was created";
+
+        var historic = [];
+        var hist = {target:"Company Created", changes:content,user:user,date:new Date()};
+        historic.push(hist);
+
         //for simple signup
         company.set({
+            historic: historic,
             name: data.Name,
             email: data.SupportEmail,
             phone: data.Phone,
