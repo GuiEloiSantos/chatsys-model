@@ -72,7 +72,7 @@ var company = new Schema(
 );
 company.methods.updateIframeSettings = function (custom_form, custom_iframe_code, custom_iframe_window, custom_iframe_window_name, user) {
     user = user?user:"System";
-    var content = "Custom form: "+custom_form+"</br>Custom iFrame code: "+custom_iframe_code+"</br>Custom iFrame Window: "+custom_iframe_window+"</br>Custom iFrame Window Name";
+    var content = "Custom form: "+custom_form+" Custom iFrame code: "+custom_iframe_code+" Custom iFrame Window: "+custom_iframe_window+" Custom iFrame Window Name";
 
     var historic = this.historic;
     var hist = {target:"iFrame Settings", changes:content,user:user,date:new Date()};
@@ -163,7 +163,7 @@ company.methods.setGA = function (bool, user) {
 };
 company.methods.saveHooks = function (onLead, onChat, user) {
     user = user?user:"System";
-    var content = "On Chat: "+onChat+"</br> On Lead: "+onLead;
+    var content = "On Chat: "+onChat+" On Lead: "+onLead;
 
     var historic = this.historic;
     var hist = {target:"Web Hook", changes:content,user:user,date:new Date()};
@@ -217,7 +217,7 @@ company.methods.updateZoho = function (customer_id, subscription_id) {
 
 company.methods.updateBasic = function (name, phone, timezone, industry, main_url, email, user) {
     user = user?user:"System";
-    var content = "Name: "+name+"</br>Phone: "+phone+"</br>Timezone: "+timezone+"</br>Industry: "+industry+"</br>Email: "+email;
+    var content = "Name: "+name+" Phone: "+phone+" Timezone: "+timezone+" Industry: "+industry+" Email: "+email;
 
     var historic = this.historic;
     var hist = {target:"Basic Company Information", changes:content,user:user,date:new Date()};
@@ -235,8 +235,8 @@ company.methods.updateBasic = function (name, phone, timezone, industry, main_ur
 company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code, user) {
     user = user?user:"System";
     var content = "";
-    weekends?content+="Weekends OFF </br>":content+="Weekends OFF </br>";
-    cust_h?content+="Custom hours from "+start_time+" to "+end_time+"</br>":content+="Custom hours OFF </br>";
+    weekends?content+="Weekends On ":content+="Weekends OFF  ";
+    cust_h?content+="Custom hours from "+start_time+" to "+end_time+" ":content+="Custom hours OFF  ";
     var historic = this.historic;
     var hist = {target:"Chat settings", changes:content,user:user,date:new Date()};
     historic.push(hist);
