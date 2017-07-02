@@ -12,7 +12,7 @@ var plan = new Schema(
         lead_limit: {type: Number, default: 0},
         chat_limit: {type: Number, default: 0},
         lead_price: {type: Number, default: 15},
-        lead_price: {type: Number, default: 5}
+        chat_price: {type: Number, default: 5}
     },
     {
         timestamps: true,
@@ -20,13 +20,29 @@ var plan = new Schema(
     }
 );
 
+plan.methods.update = function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
+    this.set({
+        name: name,
+        code: code,
+        description: description,
+        addOns: addOns,
+        price: price,
+        lead_limit: lead_limit,
+        chat_limit: chat_limit,
+        lead_price: lead_price,
+        chat_price: chat_price
+    });
+    return this.save();
+};
+
 plan.static({
 
-    newPlan: function (name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
+    newPlan: function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
         var Category = this.model('Category');
         var category = new Category();
         plan.set({
             name: name,
+            sale_name: sale_name,
             code: code,
             description: description,
             addOns: addOns,
