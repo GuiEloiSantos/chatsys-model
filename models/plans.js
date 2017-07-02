@@ -20,7 +20,7 @@ var plan = new Schema(
     }
 );
 
-plan.methods.update = function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
+plan.methods.updatePlan = function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
     this.set({
         name: name,
         code: code,
