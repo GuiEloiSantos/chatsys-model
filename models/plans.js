@@ -38,8 +38,8 @@ plan.methods.update = function (name,sale_name, code, description, addOns, price
 plan.static({
 
     newPlan: function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
-        var Category = this.model('Category');
-        var category = new Category();
+        var Plan = this.model('Plan');
+        var plan = new Plan();
         plan.set({
             name: name,
             sale_name: sale_name,
