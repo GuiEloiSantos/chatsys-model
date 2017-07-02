@@ -5,3 +5,4 @@ exports.Faq = require('./models/faq');
 exports.Iframe = require('./models/iframe');
 exports.Lead = require('./models/lead');
 exports.User = require('./models/user');
+exports.Plan = require('./models/plans');
