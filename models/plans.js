@@ -20,7 +20,7 @@ var plan = new Schema(
     }
 );
 
-plan.methods.updatePlan = function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
+plan.methods.updatePlan = function (name, sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
     this.set({
         name: name,
         code: code,
@@ -36,8 +36,7 @@ plan.methods.updatePlan = function (name,sale_name, code, description, addOns, p
 };
 
 plan.static({
-
-    newPlan: function (name,sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
+    newPlan: function (name, sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
         var Plan = this.model('Plan');
         var plan = new Plan();
         plan.set({
