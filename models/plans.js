@@ -7,6 +7,7 @@ var plan = new Schema(
         sale_name: String,
         code: {type: String, unique: true, index: true},
         description: String,
+        currency: {type:String, default:"USD"},
         addOns: {type: Array, default: []},
         price: {type: Number, default: 99},
         lead_limit: {type: Number, default: 0},
@@ -23,6 +24,7 @@ var plan = new Schema(
 plan.methods.updatePlan = function (name, sale_name, code, description, addOns, price, lead_limit, chat_limit, lead_price, chat_price) {
     this.set({
         name: name,
+        sale_name:sale_name,
         code: code,
         description: description,
         addOns: addOns,
@@ -52,6 +54,10 @@ plan.static({
             chat_price: chat_price
         });
         return plan.save();
+    },
+    findByName: function (name) {
+        var Plan = this.model('Plan');
+        return Plan.findOne({name: name}).exec();
     }
 });
 module.exports = mongoose.model('Plan', plan);
