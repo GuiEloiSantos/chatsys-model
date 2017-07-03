@@ -110,7 +110,7 @@ user.static({
      * @return {Promise}
      */
     newUser: function (data, id) {
-        var plans_array = ["Monthly-10-Leads-99-SDGST","Monthly-20-Leads-199-USDGST","Monthly-40-leads-279-USDGST","Monthly-60-leads-399-USDGST","Monthly-90-leads-579-USDGST","Monthly-100-leads-679","Monthly-145-leads-979-USDGST","Monthly-200-leads-1299-USDGST"];
+        var plans_array = ["default_1","default_2","default_3","default_4","default_5","default_6","default_7","default_8"];
         var User = this.model('User');
         var user = new User();
         var plans = [];
@@ -129,9 +129,9 @@ user.static({
                 plans.push(plans_array[index]);plans.push(plans_array[index-1]);plans.push(plans_array[index-2]);
             }
         }else{
-            data.user_metadata.plancode1?plans.push(data.user_metadata.plancode1):plans.push("Monthly-10-Leads-99-SDGST");
-            data.user_metadata.plancode2?plans.push(data.user_metadata.plancode2):plans.push("Monthly-60-leads-399-USDGST");
-            data.user_metadata.plancode3?plans.push(data.user_metadata.plancode3):plans.push("Monthly-100-leads-679");
+            data.user_metadata.plancode1?plans.push(data.user_metadata.plancode1):plans.push("default_1");
+            data.user_metadata.plancode2?plans.push(data.user_metadata.plancode2):plans.push("default_5");
+            data.user_metadata.plancode3?plans.push(data.user_metadata.plancode3):plans.push("default_6");
         }
 
         user.set({
