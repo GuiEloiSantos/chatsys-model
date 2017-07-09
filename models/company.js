@@ -31,7 +31,7 @@ var company = new Schema(
             chat_price: {type: Number, default: 5},
             pay_overage: {type: Boolean, default: false},
             expiry_date: {type: Date},
-            turn_it_back: {type: Date}
+            turn_it_back: {type: Number, default: 0}
         },
         settings: {
             lci_chat: {type: Number, default: 9999990},
@@ -190,6 +190,24 @@ company.methods.changeStatus = function (data, user) {
     this.set({"settings.status": data});
     return this.save();
 };
+
+company.methods.programedOff = function ( month, user) {
+    user = user?user:"System";
+    var  data = "inactive";
+    var content = "Turned OFF, it will turn on again 01/"+month;
+
+    var historic = this.historic;
+    var hist = {target:"Chat Status", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
+
+
+    this.set({"settings.status": data});
+    this.set({"plan.turn_it_back": month});
+    return this.save();
+};
+
 company.methods.generateApiKey = function (key, user) {
     user = user?user:"System";
     var content = "Generate you an API Key";
