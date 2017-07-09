@@ -29,7 +29,9 @@ var company = new Schema(
             chat_actual: {type: Number, default: 0},
             lead_price: {type: Number, default: 15},
             chat_price: {type: Number, default: 5},
-            expiry_date: {type: Date}
+            pay_overage: {type: Boolean, default: false},
+            expiry_date: {type: Date},
+            turn_it_back: {type: Date}
         },
         settings: {
             lci_chat: {type: Number, default: 9999990},
