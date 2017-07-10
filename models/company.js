@@ -191,6 +191,22 @@ company.methods.changeStatus = function (data, user) {
     return this.save();
 };
 
+
+company.methods.payOverage = function (data, user) {
+    user = user?user:"System";
+    var content = data==true?"You agreed to pay overage":"Your ChatBox will be turned off if you go over your limit";
+
+    var historic = this.historic;
+    var hist = {target:"Pay Overage", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+
+    this.set({historic: historic});
+
+
+    this.set({"plan.pay_overage": data});
+    return this.save();
+};
+
 company.methods.programedOff = function ( month, user) {
     user = user?user:"System";
     var  data = "inactive";
