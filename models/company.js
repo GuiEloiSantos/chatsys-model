@@ -204,6 +204,7 @@ company.methods.payOverage = function (data, user) {
 
 
     this.set({"plan.pay_overage": data});
+    this.set({"plan.turn_it_back": ""});
     return this.save();
 };
 
