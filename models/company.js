@@ -24,8 +24,10 @@ var company = new Schema(
             type: {type: String, default: 'normal'},
             status: String,
             lead_limit: {type: Number, default: 0},
+            lead_credit: {type: Number, default: 0},
             lead_actual: {type: Number, default: 0},
             chat_limit: {type: Number, default: 0},
+            chat_credit: {type: Number, default: 0},
             chat_actual: {type: Number, default: 0},
             lead_price: {type: Number, default: 15},
             chat_price: {type: Number, default: 5},
@@ -299,6 +301,25 @@ company.methods.updatePlan = function (name, value, currency, type, status, lead
     this.set({"plan.expiry_date": expiry_date});
     return this.save();
 };
+
+company.methods.leadLimitCheck = function (percent) {
+    if(this.lead_limit <0)
+        return false;
+    var actual = this.lead_actual +1;
+    var limit = this.lead_limit + this.lead_credit;
+
+    return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
+};
+
+company.methods.chatLimitCheck = function (percent) {
+    if(this.chat_limit <0)
+        return false;
+    var actual = this.chat_actual +1;
+    var limit = this.chat_limit + this.chat_credit;
+
+    return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
+};
+
 company.static({
     getCompanyApi: function (user, api_key) {
         var Company = this.model('Company');
