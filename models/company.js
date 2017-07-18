@@ -316,7 +316,7 @@ company.methods.chatLimitCheck = function (percent) {
         return false;
     var actual = this.plan.chat_actual +1;
     var limit = this.plan.chat_limit + this.chat_credit;
-
+//push
     return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
 };
 
