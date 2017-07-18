@@ -307,7 +307,7 @@ company.methods.leadLimitCheck = function (percent) {
         return false;
     var actual = this.lead_actual +1;
     var limit = this.lead_limit + this.lead_credit;
-
+    console.log("actual: "+actual+" limit:"+limit);
     return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
 };
 
