@@ -306,7 +306,7 @@ company.methods.leadLimitCheck = function (percent) {
     if(this.plan.lead_limit <0)
         return false;
     var actual = this.plan.lead_actual +1;
-    var limit = this.plan.lead_limit + this.lead_credit?this.lead_credit:0;
+    var limit = this.plan.lead_limit + (this.plan.lead_credit?this.plan.lead_credit:0);
     console.log("actual: "+actual+" limit:"+limit);
     return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
 };
@@ -315,7 +315,7 @@ company.methods.chatLimitCheck = function (percent) {
     if(this.plan.chat_limit <0)
         return false;
     var actual = this.plan.chat_actual +1;
-    var limit = this.plan.chat_limit + this.chat_credit?this.chat_credit:0;
+    var limit = this.plan.chat_limit + (this.plan.chat_credit?this.plan.chat_credit:0);
 //push
     return ((actual-1)/limit)<percent && ((actual)/limit)>=percent;
 };
