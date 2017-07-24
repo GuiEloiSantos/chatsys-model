@@ -52,6 +52,7 @@ var company = new Schema(
             switcher_code: String,
             gtm_code: String,
             ga_code: {type: Boolean, default: false},
+            lead_enrich: {type: Boolean, default: false},
             api_key: String,
             custom_form: String,
             custom_iframe_code: String,
@@ -163,6 +164,19 @@ company.methods.setGA = function (bool, user) {
 
 
     this.set({"settings.ga_code": bool});
+    return this.save();
+};
+company.methods.setEnrichLead = function (bool, user) {
+    user = user?user:"System";
+    var content = bool?"Activated Enrich Lead":"Deactivated Enrich Lead";
+
+    var historic = this.historic;
+    var hist = {target:"Enrich Lead", changes:content,user:user,date:new Date()};
+    historic.push(hist);
+    this.set({historic: historic});
+
+
+    this.set({"settings.lead_enrich": bool});
     return this.save();
 };
 company.methods.saveHooks = function (onLead, onChat, user) {

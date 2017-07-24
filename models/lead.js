@@ -15,7 +15,10 @@ var lead = new Schema(
         rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []},
         date: {type: Date},
-        enrich: String
+        enrich: String,
+        enrich_company: {type: Array, default: []},
+        enrich_person: {type: Array, default: []}
+
     },
     {
         timestamps: true,
@@ -23,8 +26,10 @@ var lead = new Schema(
     }
 );
 
-lead.methods.SetEnrich = function (data) {
+lead.methods.SetEnrich = function (data, person, company) {
     this.set({enrich: data});
+    this.set({enrich_person: person});
+    this.set({enrich_company: company});
     return this.save();
 };
 
