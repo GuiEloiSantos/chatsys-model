@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var lead = new Schema(
     {
-        company_id: {type: Schema.Types.ObjectId, ref: 'company' },
-        chat_id: {type:String, unique:true, index: true},
+        company_id: {type: Schema.Types.ObjectId, ref: 'company'},
+        chat_id: {type: String, unique: true, index: true},
         status: {type: String, default: "Pending"},
         notes: String,
         name: String,
@@ -24,16 +24,16 @@ var lead = new Schema(
 );
 
 lead.methods.SetEnrich = function (data) {
-    this.set({enrich: data });
+    this.set({enrich: data});
     return this.save();
 };
 
 lead.static({
     newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
         var Lead = this.model('Lead');
-        var lead= new Lead();
+        var lead = new Lead();
         var situation = '';
-        if(!name && !email && !phone){
+        if (!name && !email && !phone) {
             situation = 'SEE TRANSCRIPT';
         }
         lead.set({
@@ -51,13 +51,22 @@ lead.static({
     },
     getLeadByCompany: function (company_id) {
         var Lead = this.model('Lead');
-        return Lead.find({'company_id':company_id});
+        return Lead.find({'company_id': company_id});
+    },
+    getLeadToAPI: function (company_id, start_date, end_date) {
+        var Lead = this.model('Lead');
+        return Lead.find({
+            'company_id': company_id, created_at: {
+                $gte: new Date(start_date),
+                $lt: new Date(end_date)
+            }
+        });
     },
     getLeadByChatId: function (chat_id) {
         var Lead = this.model('Lead');
-        return Lead.findOne({'chat_id':chat_id});
+        return Lead.findOne({'chat_id': chat_id});
     },
-    modifyStatus: function (id,status) {
+    modifyStatus: function (id, status) {
         var Lead = this.model('Lead');
         Lead.findOne({_id: id}).exec().then(function (lead) {
             return lead.update({
