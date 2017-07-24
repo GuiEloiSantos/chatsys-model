@@ -55,10 +55,13 @@ lead.static({
     },
     getLeadToAPI: function (company_id, start_date, end_date) {
         var Lead = this.model('Lead');
+        var date_from = new Date(start_date);
+        var date_to = new Date(end_date);
         return Lead.find({
-            'company_id': company_id, created_at: {
-                $gte: new Date(start_date),
-                $lt: new Date(end_date)
+            'company_id': company_id,
+            'date': {
+                $gte: date_from,
+                $lt: date_to
             }
         });
     },
