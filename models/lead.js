@@ -54,9 +54,15 @@ lead.static({
         });
         return lead.save();
     },
-    getLeadByCompany: function (company_id) {
+    getLeadByCompany: function (company_id, status) {
         var Lead = this.model('Lead');
-        return Lead.find({'company_id': company_id});
+        if(!status)
+            return Lead.find({'company_id': company_id});
+        else if(status == 'pending')
+            return Lead.find({'company_id': company_id, status: "Pending"});
+        else if(status == 'completed')
+            return Lead.find({'company_id': company_id, status: "Completed"});
+
     },
     getLeadToAPI: function (company_id, start_date, end_date) {
         var Lead = this.model('Lead');
