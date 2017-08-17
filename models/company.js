@@ -200,6 +200,8 @@ company.methods.changeStatus = function (data, user) {
     var hist = {target:"Chat Status", changes:content,user:user,date:new Date()};
     historic.push(hist);
 
+    if(data==="active")
+        this.set({"plan.turn_it_back": ""});
     this.set({historic: historic});
 
 
