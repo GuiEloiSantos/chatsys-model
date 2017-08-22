@@ -41,8 +41,6 @@ faq.methods.updateCount = function (count) {
     return this.save();
 };
 faq.static({
-//get
-
     newFaq: function (company_id,title,content,keywords, status, user) {
         status = status?status:"Approved";
         user = user?user:"System";
@@ -162,6 +160,11 @@ faq.static({
         });
 
 
+    },
+    updateOrder: function (id, order) {
+        Faq.findOne({_id: id}).exec().then(function (faq) {
+            return faq.update({ order: order });
+        });
     },
     getProductInfo:function (company_id) {
         var Faq = this.model('Faq');
