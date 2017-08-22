@@ -168,6 +168,12 @@ faq.static({
             return faq.update({ order: order });
         });
     },
+    updateStatusFaq: function (id, status) {
+        var Faq = this.model('Faq');
+        Faq.findOne({_id: id}).exec().then(function (faq) {
+            return faq.update({ status: status });
+        });
+    },
     getProductInfo:function (company_id) {
         var Faq = this.model('Faq');
         return Faq.getFaqByCompanyAndCategory(company_id, productInfo);
