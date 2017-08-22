@@ -162,6 +162,8 @@ faq.static({
 
     },
     updateOrder: function (id, order) {
+
+        var Faq = this.model('Faq');
         Faq.findOne({_id: id}).exec().then(function (faq) {
             return faq.update({ order: order });
         });
