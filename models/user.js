@@ -9,12 +9,12 @@ var user = new Schema(
         type: {type: String, default: 'admin'},
         status: {type: String, default: 'form'},
         permission: {type: Array, default: []},
-        child_companies: [Schema.Types.ObjectId],
+        child_companies: [{company_id: Schema.Types.ObjectId, comp_name: String}],
         email_verified: Boolean,
         email: String,
         picture: String,
         phone: String,
-        plans: { type: Array, default:[] },
+        plans: {type: Array, default: []},
         timezone: {type: String, default: 'America/Los_Angeles'},
         syst_admin: {type: Boolean, default: false}
     },
@@ -51,7 +51,7 @@ user.methods.updateStatusComplete = function () {
 };
 
 user.methods.blockUser = function () {
-  return this.updateStatus("block");
+    return this.updateStatus("block");
 };
 user.methods.setUserAdmin = function (admin) {
     return this.update({syst_admin: admin});
@@ -60,7 +60,7 @@ user.methods.updateEmailVerification = function (verified) {
     return this.update({email_verified: verified});
 };
 
-user.methods.updateBasic = function (name,phone,timezone,email) {
+user.methods.updateBasic = function (name, phone, timezone, email) {
     this.set({phone: phone});
     this.set({name: name});
     this.set({timezone: timezone});
@@ -111,7 +111,7 @@ user.static({
      * @return {Promise}
      */
     newUser: function (data, id) {
-        var plans_array = ["default_1","default_2","default_3","default_4","default_5","default_6","default_7","default_8"];
+        var plans_array = ["default_1", "default_2", "default_3", "default_4", "default_5", "default_6", "default_7", "default_8"];
         var User = this.model('User');
         var user = new User();
         var plans = [];
@@ -121,18 +121,24 @@ user.static({
             name = data.user_metadata.name;
         }
         var index = plans_array.indexOf(data.user_metadata.visitors);
-        if(index > -1){
-            if(index == 0){
-                plans.push(plans_array[0]);plans.push(plans_array[1]);plans.push(plans_array[2]);
-            }else if(index == plans_array.length){
-                plans.push(plans_array[index]);plans.push(plans_array[index-1]);plans.push(plans_array[index+1]);
-            }else{
-                plans.push(plans_array[index]);plans.push(plans_array[index-1]);plans.push(plans_array[index-2]);
+        if (index > -1) {
+            if (index == 0) {
+                plans.push(plans_array[0]);
+                plans.push(plans_array[1]);
+                plans.push(plans_array[2]);
+            } else if (index == plans_array.length) {
+                plans.push(plans_array[index]);
+                plans.push(plans_array[index - 1]);
+                plans.push(plans_array[index + 1]);
+            } else {
+                plans.push(plans_array[index]);
+                plans.push(plans_array[index - 1]);
+                plans.push(plans_array[index - 2]);
             }
-        }else{
-            data.user_metadata.plancode1?plans.push(data.user_metadata.plancode1):plans.push("default_1");
-            data.user_metadata.plancode2?plans.push(data.user_metadata.plancode2):plans.push("default_5");
-            data.user_metadata.plancode3?plans.push(data.user_metadata.plancode3):plans.push("default_6");
+        } else {
+            data.user_metadata.plancode1 ? plans.push(data.user_metadata.plancode1) : plans.push("default_1");
+            data.user_metadata.plancode2 ? plans.push(data.user_metadata.plancode2) : plans.push("default_5");
+            data.user_metadata.plancode3 ? plans.push(data.user_metadata.plancode3) : plans.push("default_6");
         }
 
         user.set({
