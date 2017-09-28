@@ -9,6 +9,7 @@ var user = new Schema(
         type: {type: String, default: 'admin'},
         status: {type: String, default: 'form'},
         permission: {type: Array, default: []},
+        child_companies: [Schema.Types.ObjectId],
         email_verified: Boolean,
         email: String,
         picture: String,
