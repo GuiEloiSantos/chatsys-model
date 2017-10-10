@@ -17,12 +17,12 @@ var company = new Schema(
             user: String,
             date: {type: Date}
         }],
-        custom_look:[{
+        custom_look:{
             color_primary: String,
             color_sec: String,
             color_third: String,
             custom_image: String
-        }],
+        },
         plan: {
             name: String,
             value: {type: Number, default: 0},
