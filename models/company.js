@@ -265,8 +265,8 @@ company.methods.updateLead = function (lead_actual) {
     return this.save();
 };
 company.methods.updateZoho = function (customer_id, subscription_id) {
-    this.set({"zoho.customer_id": subscription_id});
-    this.set({"zoho.subscription_id": customer_id});
+    this.set({"zoho.customer_id": customer_id});
+    this.set({"zoho.subscription_id": subscription_id});
     return this.save();
 };
 
