@@ -20,6 +20,7 @@ var company = new Schema(
         plan: {
             name: String,
             value: {type: Number, default: 0},
+            contract_term: {type: Number, default: 0},
             currency: String,
             type: {type: String, default: 'normal'},
             status: String,
@@ -304,7 +305,7 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
     this.set({"settings.custom_hours.end_time": end_time});
     return this.save();
 };
-company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date) {
+company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date,contract_term) {
     this.set({"plan.name": name});
     this.set({"plan.value": value});
     this.set({"plan.currency": currency});
@@ -315,6 +316,7 @@ company.methods.updatePlan = function (name, value, currency, type, status, lead
     this.set({"plan.lead_price": lead_price});
     this.set({"plan.chat_price": chat_price});
     this.set({"plan.expiry_date": expiry_date});
+    this.set({"plan.contract_term": contract_term});
     return this.save();
 };
 
