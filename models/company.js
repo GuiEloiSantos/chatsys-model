@@ -317,6 +317,7 @@ company.methods.updatePlan = function (name, value, currency, type, status, lead
     this.set({"plan.chat_price": chat_price});
     this.set({"plan.expiry_date": expiry_date});
     this.set({"plan.contract_term": contract_term});
+    console.log(contract_term);
     return this.save();
 };
 
