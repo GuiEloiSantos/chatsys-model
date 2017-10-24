@@ -48,7 +48,8 @@ var company = new Schema(
             custom_hours: {
                 active: {type: Boolean, default: false},
                 start_time: String,
-                end_time: String
+                end_time: String,
+                on_in: {type: Boolean, default: true}
             },
             webhooks: {
                 onLead: String,
@@ -294,7 +295,7 @@ company.methods.updateBasic = function (name, phone, timezone, industry, main_ur
     this.set({main_url: util.formatUrl(main_url)});
     return this.save();
 };
-company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code, user) {
+company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code,on_in, user) {
     user = user?user:"System";
     var content = "";
     weekends?content+="Weekends On ":content+="Weekends OFF  ";
@@ -309,6 +310,7 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
     this.set({"settings.switcher_code": switcher_code});
     this.set({"settings.custom_hours.start_time": start_time});
     this.set({"settings.custom_hours.end_time": end_time});
+    this.set({"settings.custom_hours.on_in": on_in});
     return this.save();
 };
 company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date,contract_term) {
