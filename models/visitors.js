@@ -17,12 +17,14 @@ let visitor = new Schema(
 );
 visitor.static({
     addNew: (ip, identifier, website, location) => {
-        this.set({identifier: identifier});
-        this.set({ip: ip});
-        this.set({website: website});
-        this.set({location: location.join(' - ')});
-        this.set({date: new Date()});
-        return this.save();
+        let Visitor = this.model('Visitor');
+        let visitor = new Visitor();
+        visitor.set({identifier: identifier});
+        visitor.set({ip: ip});
+        visitor.set({website: website});
+        visitor.set({location: location.join(' - ')});
+        visitor.set({date: new Date()});
+        return visitor.save();
     }
 })
 ;
