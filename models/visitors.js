@@ -15,15 +15,15 @@ let visitor = new Schema(
         versionKey: false
     }
 );
-
-visitor.methods.addNew = (ip, identifier, website, location) => {
-    this.set({identifier: identifier});
-    this.set({ip: ip});
-    this.set({website: website});
-    this.set({location: location.join(' - ')});
-    this.set({date: new Date()});
-    return this.save();
-
-};
-
+visitor.static({
+    addNew: (ip, identifier, website, location) => {
+        this.set({identifier: identifier});
+        this.set({ip: ip});
+        this.set({website: website});
+        this.set({location: location.join(' - ')});
+        this.set({date: new Date()});
+        return this.save();
+    }
+})
+;
 module.exports = mongoose.model('Visitor', visitor);
