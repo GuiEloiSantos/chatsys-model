@@ -15,6 +15,8 @@ var lead = new Schema(
         rate: {type: Number, default: 0},
         custom_fields: {type: Array, default: []},
         date: {type: Date},
+        visitor_id: String,
+        visitor_ip: String,
         enrich: {type: Boolean, default: false},
         enrich_company: {type: Array, default: []},
         enrich_person: {type: Array, default: []}

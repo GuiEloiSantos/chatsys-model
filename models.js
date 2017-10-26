@@ -6,3 +6,4 @@ exports.Iframe = require('./models/iframe');
 exports.Lead = require('./models/lead');
 exports.User = require('./models/user');
 exports.Plan = require('./models/plans');
+exports.Visitor = require('./models/visitors');
