@@ -4,11 +4,12 @@ let Schema = mongoose.Schema;
 
 let visitor = new Schema(
     {
-        identifier: String,
+        code: {type: String, index: true},
         ip: String,
         website: String,
         location: String,
-        date: {type: Date}
+        date: {type: Date},
+        company_id: {type: Schema.Types.ObjectId, ref: 'company'}
     },
     {
         timestamps: true,
@@ -16,16 +17,16 @@ let visitor = new Schema(
     }
 );
 visitor.static({
-    addNew: (ip, identifier, website, location) => {
+    addNew: function (ip, code, website, location, company_id) {
         let Visitor = this.model('Visitor');
         let visitor = new Visitor();
-        visitor.set({identifier: identifier});
+        visitor.set({code: code});
         visitor.set({ip: ip});
         visitor.set({website: website});
+        visitor.set({company_id: company_id});
         visitor.set({location: location.join(' - ')});
         visitor.set({date: new Date()});
         return visitor.save();
     }
-})
-;
+});
 module.exports = mongoose.model('Visitor', visitor);
