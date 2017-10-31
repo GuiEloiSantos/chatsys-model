@@ -49,7 +49,9 @@ var company = new Schema(
                 active: {type: Boolean, default: false},
                 start_time: String,
                 end_time: String,
-                on_in: {type: Boolean, default: true}
+                on_in: {type: Boolean, default: true},
+                allow_only:{type: Boolean, default: false},
+                countries: {type: Array, default: []}
             },
             webhooks: {
                 onLead: String,
