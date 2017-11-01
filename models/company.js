@@ -297,7 +297,7 @@ company.methods.updateBasic = function (name, phone, timezone, industry, main_ur
     this.set({main_url: util.formatUrl(main_url)});
     return this.save();
 };
-company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code,on_in, user) {
+company.methods.updateSettings = function (cust_h, start_time, end_time, weekends, switcher_code,on_in,countries,allow_only, user) {
     user = user?user:"System";
     var content = "";
     weekends?content+="Weekends On ":content+="Weekends OFF  ";
@@ -313,6 +313,8 @@ company.methods.updateSettings = function (cust_h, start_time, end_time, weekend
     this.set({"settings.custom_hours.start_time": start_time});
     this.set({"settings.custom_hours.end_time": end_time});
     this.set({"settings.custom_hours.on_in": on_in});
+    this.set({"settings.custom_hours.countries": countries});
+    this.set({"settings.custom_hours.allow_only": allow_only});
     return this.save();
 };
 company.methods.updatePlan = function (name, value, currency, type, status, lead_limit, chat_limit, lead_price, chat_price, expiry_date,contract_term) {
