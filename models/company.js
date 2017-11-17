@@ -378,7 +378,7 @@ company.static({
             status = 'inactive';
         }
         custom_hours = (data.SetHours == 1);
-        var leadList = [];
+        var leadList = data.Email.split(", ");
 
         var expiry_date;
         if (data.contract_expiry_date) {
