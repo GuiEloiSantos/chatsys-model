@@ -89,7 +89,7 @@ lead.static({
         console.log("######LEAD NOTE#########");
         console.log("######LEAD NOTE#########");
         console.log(notes);
-        Lead.findOne({_id: id}).exec().then(function (lead) {
+        Lead.findOne({chat_id: id}).exec().then(function (lead) {
             return lead.update({
                 notes: notes
             });
