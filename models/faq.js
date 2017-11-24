@@ -174,6 +174,12 @@ faq.static({
             return faq.update({ status: status });
         });
     },
+    updateCountFaq: function (id) {
+        var Faq = this.model('Faq');
+        Faq.findOne({_id: id}).exec().then(function (faq) {
+            return faq.update({ count: (faq.count+1) });
+        });
+    },
     getProductInfo:function (company_id) {
         var Faq = this.model('Faq');
         return Faq.getFaqByCompanyAndCategory(company_id, productInfo);
