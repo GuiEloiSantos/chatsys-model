@@ -82,7 +82,7 @@ lead.static({
         var Lead = this.model('Lead');
         return Lead.findOne({'chat_id': chat_id});
     },
-    addNote:(id, notes)=>{
+    addNote: function(id, notes){
         var Lead = this.model('Lead');
         Lead.findOne({_id: id}).exec().then(function (lead) {
             return lead.update({
