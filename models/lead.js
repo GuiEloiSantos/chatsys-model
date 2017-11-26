@@ -84,11 +84,6 @@ lead.static({
     },
     addNote: function(id, notes){
         var Lead = this.model('Lead');
-        console.log("######LEAD NOTE#########");
-        console.log("######LEAD NOTE#########");
-        console.log("######LEAD NOTE#########");
-        console.log("######LEAD NOTE#########");
-        console.log(notes);
         Lead.findOne({chat_id: id}).exec().then(function (lead) {
             return lead.update({
                 notes: notes

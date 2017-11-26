@@ -6,6 +6,7 @@ var chat = new Schema(
         company_id: {type: Schema.Types.ObjectId, ref: 'company_id' },
         chat_id: {type: String, unique:true, index: true},
         status: { type: String, default:"Chat"},
+        transcript: {type:String},
         date: {type: Date}
     },
     {
@@ -15,7 +16,7 @@ var chat = new Schema(
 );
 
 chat.static({
-    newChat: function (company_id, chat_id, status, date) {
+    newChat: function (company_id, chat_id, status, date, transcript) {
         var Chat = this.model('Chat');
         var chat = new Chat();
 
@@ -23,7 +24,8 @@ chat.static({
             company_id: company_id,
             chat_id: chat_id,
             status: status,
-            date: date
+            date: date,
+            transcript: transcript
         });
         return chat.save();
     },
@@ -40,6 +42,14 @@ chat.static({
         Chat.findOne({_id: id}).exec().then(function (chat) {
             return chat.update({
                 status: status
+            });
+        });
+    },
+    setTranscript: function (id,transcript) {
+        var Chat = this.model('Chat');
+        Chat.findOne({_id: id}).exec().then(function (chat) {
+            return chat.update({
+                transcript: transcript
             });
         });
     }
