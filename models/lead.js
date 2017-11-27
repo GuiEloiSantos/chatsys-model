@@ -17,6 +17,8 @@ var lead = new Schema(
         date: {type: Date},
         visitor_id: String,
         visitor_ip: String,
+        refer_url: String,
+        url: String,
         enrich: {type: Boolean, default: false},
         enrich_company: {type: Array, default: []},
         enrich_person: {type: Array, default: []}
@@ -36,7 +38,7 @@ lead.methods.SetEnrich = function (data, person, company) {
 };
 
 lead.static({
-    newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields) {
+    newLead: function (company_id, chat_id, notes, name, email, phone, date, custom_fields, refer_url, url) {
         var Lead = this.model('Lead');
         var lead = new Lead();
         var situation = '';
@@ -52,7 +54,9 @@ lead.static({
             phone: phone,
             date: date,
             situation: situation,
-            custom_fields: custom_fields
+            custom_fields: custom_fields,
+            refer_url: refer_url,
+            url: url
         });
         return lead.save();
     },
