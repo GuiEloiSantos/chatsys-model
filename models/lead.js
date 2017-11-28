@@ -103,7 +103,7 @@ lead.static({
         });
     },
     setRefferByChatId: function (id,refer_url, url) {
-        var Lead = this.model('Chat');
+        var Lead = this.model('Lead');
         Lead.findOne({chat_id: id}).exec().then(function (lead) {
             return lead.update({
                 refer_url: refer_url,
