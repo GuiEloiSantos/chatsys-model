@@ -102,7 +102,7 @@ lead.static({
             });
         });
     },
-    setReffer: function (id,refer_url, url) {
+    setRefferByChatId: function (id,refer_url, url) {
         var Lead = this.model('Chat');
         Lead.findOne({chat_id: id}).exec().then(function (lead) {
             return lead.update({
