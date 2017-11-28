@@ -19,7 +19,6 @@ var lead = new Schema(
         visitor_ip: String,
         refer_url: String,
         url: String,
-        transcript: String,
         enrich: {type: Boolean, default: false},
         enrich_company: {type: Array, default: []},
         enrich_person: {type: Array, default: []}
@@ -103,11 +102,10 @@ lead.static({
             });
         });
     },
-    setTranscript: function (id,transcript,refer_url, url) {
+    setReffer: function (id,refer_url, url) {
         var Lead = this.model('Chat');
         Lead.findOne({chat_id: id}).exec().then(function (lead) {
             return lead.update({
-                transcript: transcript,
                 refer_url: refer_url,
                 url: url
             });
