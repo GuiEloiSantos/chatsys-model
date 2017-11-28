@@ -94,6 +94,7 @@ lead.static({
             });
         });
     },
+
     modifyStatus: function (id, status, refer_url, url) {
         var Lead = this.model('Lead');
         Lead.findOne({_id: id}).exec().then(function (lead) {
