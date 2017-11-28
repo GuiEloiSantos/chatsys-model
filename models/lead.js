@@ -105,10 +105,12 @@ lead.static({
     setRefferByChatId: function (id,refer_url, url) {
         var Lead = this.model('Lead');
         Lead.findOne({chat_id: id}).exec().then(function (lead) {
+            if(lead){
+                console.log('found');
             return lead.update({
                 refer_url: refer_url,
                 url: url
-            });
+            });}
         });
     }
 });
