@@ -94,11 +94,13 @@ lead.static({
             });
         });
     },
-    modifyStatus: function (id, status) {
+    modifyStatus: function (id, status, refer_url, url) {
         var Lead = this.model('Lead');
         Lead.findOne({_id: id}).exec().then(function (lead) {
             return lead.update({
-                status: status
+                status: status,
+                refer_url: refer_url,
+                url: url
             });
         });
     }
