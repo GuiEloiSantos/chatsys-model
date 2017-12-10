@@ -56,8 +56,8 @@ faq.static({
                 if (faq)
                     return resolve(faq);
                 else {
-                    var faqs = new Faq();
-                    faqs.set({
+                    var faqs2 = new Faq();
+                    faqs2.set({
                         company_id: company_id,
                         category_name: faqs,
                         title: title,
@@ -66,7 +66,7 @@ faq.static({
                         status: status,
                         historic: historic
                     });
-                    return resolve(faqs.save());
+                    return resolve(faqs2.save());
                 }
             });
 
