@@ -49,17 +49,27 @@ faq.static({
         historic.push(hist);
 
         var Faq = this.model('Faq');
-        var faq = new Faq();
-        faq.set({
-            company_id: company_id,
-            category_name: faqs,
-            title: title,
-            content: content,
-            keywords: keywords,
-            status: status,
-            historic: historic
+
+
+        Faq.findOne({company_id: company_id, title: title, category_name: faqs}).exec().then(function (faq) {
+            if (faq)
+                return faq;
+            else {
+                var faqs = new Faq();
+                faqs.set({
+                    company_id: company_id,
+                    category_name: faqs,
+                    title: title,
+                    content: content,
+                    keywords: keywords,
+                    status: status,
+                    historic: historic
+                });
+                return faqs.save();
+            }
         });
-        return faq.save();
+
+
     },
     newAskVisitors: function (company_id, title, content, order, status, user) {
         status = status ? status : "Approved";
@@ -73,6 +83,7 @@ faq.static({
             if (faq)
                 return faq;
             else {
+                var faqs = new Faq();
                 faqs.set({
                     company_id: company_id,
                     category_name: askVisitors,
