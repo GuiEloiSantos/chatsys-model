@@ -50,26 +50,27 @@ faq.static({
 
         var Faq = this.model('Faq');
 
+        return new Promise(function (resolve, resject) {
 
-        Faq.findOne({company_id: company_id, title: title, category_name: faqs}).exec().then(function (faq) {
-            if (faq)
-                return faq;
-            else {
-                var faqs = new Faq();
-                faqs.set({
-                    company_id: company_id,
-                    category_name: faqs,
-                    title: title,
-                    content: content,
-                    keywords: keywords,
-                    status: status,
-                    historic: historic
-                });
-                return faqs.save();
-            }
+            Faq.findOne({company_id: company_id, title: title, category_name: faqs}).exec().then(function (faq) {
+                if (faq)
+                    return resolve(faq);
+                else {
+                    var faqs = new Faq();
+                    faqs.set({
+                        company_id: company_id,
+                        category_name: faqs,
+                        title: title,
+                        content: content,
+                        keywords: keywords,
+                        status: status,
+                        historic: historic
+                    });
+                    return resolve(faqs.save());
+                }
+            });
+
         });
-
-
     },
     newAskVisitors: function (company_id, title, content, order, status, user) {
         status = status ? status : "Approved";
@@ -78,23 +79,24 @@ faq.static({
         var hist = {title: title, content: content, status: status, user: user, date: new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
-
-        Faq.findOne({company_id: company_id, title: title, category_name: askVisitors}).exec().then(function (faq) {
-            if (faq)
-                return faq;
-            else {
-                var faqs = new Faq();
-                faqs.set({
-                    company_id: company_id,
-                    category_name: askVisitors,
-                    title: title,
-                    content: content,
-                    order: order,
-                    status: status,
-                    historic: historic
-                });
-                return faqs.save();
-            }
+        return new Promise(function (resolve, resject) {
+            Faq.findOne({company_id: company_id, title: title, category_name: askVisitors}).exec().then(function (faq) {
+                if (faq)
+                    return resolve(faq);
+                else {
+                    var faqs = new Faq();
+                    faqs.set({
+                        company_id: company_id,
+                        category_name: askVisitors,
+                        title: title,
+                        content: content,
+                        order: order,
+                        status: status,
+                        historic: historic
+                    });
+                    return resolve(faqs.save());
+                }
+            });
         });
 
 
@@ -108,21 +110,23 @@ faq.static({
         historic.push(hist);
         var Faq = this.model('Faq');
 
-        Faq.findOne({company_id: company_id, title: title, category_name: basicInfo}).exec().then(function (faq) {
-            if (faq)
-                return faq;
-            else {
-                var faqs = new Faq();
-                faqs.set({
-                    company_id: company_id,
-                    category_name: basicInfo,
-                    title: title,
-                    content: content,
-                    status: status,
-                    historic: historic
-                });
-                return faqs.save();
-            }
+        return new Promise(function (resolve, resject) {
+            Faq.findOne({company_id: company_id, title: title, category_name: basicInfo}).exec().then(function (faq) {
+                if (faq)
+                    return resolve(faq);
+                else {
+                    var faqs = new Faq();
+                    faqs.set({
+                        company_id: company_id,
+                        category_name: basicInfo,
+                        title: title,
+                        content: content,
+                        status: status,
+                        historic: historic
+                    });
+                    return resolve(faqs.save());
+                }
+            });
         });
 
     },
@@ -153,21 +157,28 @@ faq.static({
         var hist = {title: title, content: content, status: status, user: user, date: new Date()};
         historic.push(hist);
         var Faq = this.model('Faq');
-        Faq.findOne({company_id: company_id, title: title, category_name: continueExit}).exec().then(function (faq) {
-            if (faq)
-                return faq;
-            else {
-                var faqs = new Faq();
-                faqs.set({
-                    company_id: company_id,
-                    category_name: continueExit,
-                    title: title,
-                    content: content,
-                    status: status,
-                    historic: historic
-                });
-                return faqs.save();
-            }
+
+        return new Promise(function (resolve, resject) {
+            Faq.findOne({
+                company_id: company_id,
+                title: title,
+                category_name: continueExit
+            }).exec().then(function (faq) {
+                if (faq)
+                    return resolve(faq);
+                else {
+                    var faqs = new Faq();
+                    faqs.set({
+                        company_id: company_id,
+                        category_name: continueExit,
+                        title: title,
+                        content: content,
+                        status: status,
+                        historic: historic
+                    });
+                    return resolve(faqs.save());
+                }
+            });
         });
     },
     updateAny: function (id, title, content, keywords, price, order, count, status, user) {
